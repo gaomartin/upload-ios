@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="65" id="SjA-dM-peE" customClass="VideoStatusTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="65"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="SjA-dM-peE" id="OZm-pl-56l">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="教你的女友拍风景--不言不语..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B9f-sh-h8i">
+                        <rect key="frame" x="10" y="0.0" width="210" height="30"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" red="0.36862745099999999" green="0.36862745099999999" blue="0.36862745099999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="正在上传..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wSD-WQ-zDI">
+                        <rect key="frame" x="10" y="30" width="60" height="30"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="60" id="sOG-zh-ga3"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" red="0.77647058820000003" green="0.77647058820000003" blue="0.77647058820000003" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="14-11-5 17:50 创建" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f5Q-KO-Vc4">
+                        <rect key="frame" x="70" y="39" width="150" height="15"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" red="0.50980392159999999" green="0.80392156859999997" blue="0.98039215690000003" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="v3v-mO-xed">
+                        <rect key="frame" x="0.0" y="62" width="320" height="2"/>
+                        <color key="progressTintColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="trackTintColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
+                    </progressView>
+                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c3w-se-Fnc" userLabel="ReUpload Button">
+                        <rect key="frame" x="224" y="0.0" width="49" height="64"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="49" id="7vi-Qb-9Qc"/>
+                        </constraints>
+                        <state key="normal" image="upload-normal">
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                        <state key="highlighted" image="upload-pressed.png"/>
+                        <connections>
+                            <action selector="reUploadButtonClick:" destination="SjA-dM-peE" eventType="touchUpInside" id="Rge-nh-6zM"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v8C-sH-d4L" userLabel="Pause Or Continue Button">
+                        <rect key="frame" x="224" y="0.0" width="49" height="64"/>
+                        <state key="normal" image="cloudplay">
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                        <connections>
+                            <action selector="pauseOrContinueButtonClick:" destination="SjA-dM-peE" eventType="touchUpInside" id="mrm-o2-pMq"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jar-jl-Jab" userLabel="Cancel Button">
+                        <rect key="frame" x="273" y="0.0" width="47" height="64"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="47" id="1sm-Gw-kmh"/>
+                        </constraints>
+                        <state key="normal" image="delete-normal">
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                        <connections>
+                            <action selector="cancelButtonClick:" destination="SjA-dM-peE" eventType="touchUpInside" id="wGx-Le-Vfo"/>
+                        </connections>
+                    </button>
+                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Hz-qv-OTH" userLabel="complete button">
+                        <rect key="frame" x="224" y="0.0" width="49" height="64"/>
+                        <state key="normal" image="complete-normal">
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                        <state key="highlighted" image="complete-pressed.png"/>
+                        <connections>
+                            <action selector="completeButtonClick:" destination="SjA-dM-peE" eventType="touchUpInside" id="3oD-JS-bjK"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="v3v-mO-xed" firstAttribute="leading" secondItem="OZm-pl-56l" secondAttribute="leading" id="4qV-1k-tvB"/>
+                    <constraint firstItem="v3v-mO-xed" firstAttribute="bottom" secondItem="8Hz-qv-OTH" secondAttribute="bottom" id="8sr-Pg-2ws"/>
+                    <constraint firstItem="v3v-mO-xed" firstAttribute="top" secondItem="wSD-WQ-zDI" secondAttribute="bottom" constant="2" id="9PX-4W-3v2"/>
+                    <constraint firstItem="v8C-sH-d4L" firstAttribute="trailing" secondItem="c3w-se-Fnc" secondAttribute="trailing" id="9dp-Kh-43c"/>
+                    <constraint firstItem="8Hz-qv-OTH" firstAttribute="centerY" secondItem="v8C-sH-d4L" secondAttribute="centerY" id="BEB-H5-Mtj"/>
+                    <constraint firstItem="v3v-mO-xed" firstAttribute="top" secondItem="f5Q-KO-Vc4" secondAttribute="bottom" constant="8" symbolic="YES" id="Em1-YI-N2f"/>
+                    <constraint firstItem="c3w-se-Fnc" firstAttribute="top" secondItem="8Hz-qv-OTH" secondAttribute="top" id="IIA-Uc-b4R"/>
+                    <constraint firstItem="8Hz-qv-OTH" firstAttribute="trailing" secondItem="c3w-se-Fnc" secondAttribute="trailing" id="MxD-V4-J7h"/>
+                    <constraint firstItem="jar-jl-Jab" firstAttribute="leading" secondItem="8Hz-qv-OTH" secondAttribute="trailing" id="O5j-Jb-wQJ"/>
+                    <constraint firstItem="B9f-sh-h8i" firstAttribute="leading" secondItem="OZm-pl-56l" secondAttribute="leadingMargin" constant="2" id="TAo-pv-Pmw"/>
+                    <constraint firstItem="f5Q-KO-Vc4" firstAttribute="top" secondItem="B9f-sh-h8i" secondAttribute="bottom" constant="9" id="TIP-zg-cXK"/>
+                    <constraint firstItem="8Hz-qv-OTH" firstAttribute="bottom" secondItem="v8C-sH-d4L" secondAttribute="bottom" id="TPo-hi-dsE"/>
+                    <constraint firstItem="c3w-se-Fnc" firstAttribute="bottom" secondItem="v8C-sH-d4L" secondAttribute="bottom" id="UVc-uu-9Wx"/>
+                    <constraint firstItem="f5Q-KO-Vc4" firstAttribute="leading" secondItem="wSD-WQ-zDI" secondAttribute="trailing" id="Wnk-Hi-EhR"/>
+                    <constraint firstItem="f5Q-KO-Vc4" firstAttribute="trailing" secondItem="B9f-sh-h8i" secondAttribute="trailing" id="bsM-6v-CkT"/>
+                    <constraint firstItem="jar-jl-Jab" firstAttribute="trailing" secondItem="v3v-mO-xed" secondAttribute="trailing" id="bxd-PX-kdo"/>
+                    <constraint firstItem="8Hz-qv-OTH" firstAttribute="leading" secondItem="v8C-sH-d4L" secondAttribute="leading" id="cuU-Cy-88o"/>
+                    <constraint firstItem="B9f-sh-h8i" firstAttribute="top" secondItem="v8C-sH-d4L" secondAttribute="top" id="gdY-ac-Tmm"/>
+                    <constraint firstItem="8Hz-qv-OTH" firstAttribute="leading" secondItem="c3w-se-Fnc" secondAttribute="leading" id="h40-4D-ufF"/>
+                    <constraint firstItem="8Hz-qv-OTH" firstAttribute="bottom" secondItem="jar-jl-Jab" secondAttribute="bottom" id="i7h-48-zam"/>
+                    <constraint firstItem="c3w-se-Fnc" firstAttribute="top" secondItem="8Hz-qv-OTH" secondAttribute="top" id="jmw-7q-JA4"/>
+                    <constraint firstItem="c3w-se-Fnc" firstAttribute="top" secondItem="jar-jl-Jab" secondAttribute="top" id="jtJ-G1-gTF"/>
+                    <constraint firstItem="8Hz-qv-OTH" firstAttribute="top" secondItem="v8C-sH-d4L" secondAttribute="top" id="k5B-yT-NfX"/>
+                    <constraint firstItem="8Hz-qv-OTH" firstAttribute="leading" secondItem="B9f-sh-h8i" secondAttribute="trailing" constant="4" id="kBA-ev-70c"/>
+                    <constraint firstAttribute="bottom" secondItem="v3v-mO-xed" secondAttribute="bottom" id="kIJ-L3-uXj"/>
+                    <constraint firstItem="v8C-sH-d4L" firstAttribute="top" secondItem="jar-jl-Jab" secondAttribute="top" id="mdC-7X-hL5"/>
+                    <constraint firstItem="B9f-sh-h8i" firstAttribute="leading" secondItem="wSD-WQ-zDI" secondAttribute="leading" id="n7Y-Cg-BNm"/>
+                    <constraint firstItem="c3w-se-Fnc" firstAttribute="top" secondItem="v8C-sH-d4L" secondAttribute="top" id="ogr-mi-wyB"/>
+                    <constraint firstItem="c3w-se-Fnc" firstAttribute="top" secondItem="v8C-sH-d4L" secondAttribute="top" id="pZ8-hG-hFW"/>
+                    <constraint firstItem="B9f-sh-h8i" firstAttribute="top" secondItem="OZm-pl-56l" secondAttribute="top" id="pui-wj-O2H"/>
+                    <constraint firstAttribute="trailing" secondItem="jar-jl-Jab" secondAttribute="trailing" id="sBw-wv-xp1"/>
+                    <constraint firstItem="v8C-sH-d4L" firstAttribute="bottom" secondItem="8Hz-qv-OTH" secondAttribute="bottom" id="whl-KO-wVD"/>
+                    <constraint firstItem="wSD-WQ-zDI" firstAttribute="top" secondItem="B9f-sh-h8i" secondAttribute="bottom" id="zK1-4R-Ste"/>
+                </constraints>
+                <variation key="default">
+                    <mask key="constraints">
+                        <exclude reference="BEB-H5-Mtj"/>
+                        <exclude reference="TPo-hi-dsE"/>
+                        <exclude reference="k5B-yT-NfX"/>
+                    </mask>
+                </variation>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="cancelButton" destination="jar-jl-Jab" id="DbR-6I-ihX"/>
+                <outlet property="completeButton" destination="8Hz-qv-OTH" id="gJ2-Aw-9hu"/>
+                <outlet property="createTimeLabel" destination="f5Q-KO-Vc4" id="Lwm-7B-DLL"/>
+                <outlet property="pauseOrContinueButton" destination="v8C-sH-d4L" id="y5l-Jm-Zq7"/>
+                <outlet property="reUploadButton" destination="c3w-se-Fnc" id="t1H-Mt-HNX"/>
+                <outlet property="uploadProgressBar" destination="v3v-mO-xed" id="r0B-0t-XkW"/>
+                <outlet property="uploadStateLabel" destination="wSD-WQ-zDI" id="gd9-Tw-JlM"/>
+                <outlet property="videoTitleLabel" destination="B9f-sh-h8i" id="nED-p3-nTM"/>
+            </connections>
+            <point key="canvasLocation" x="440" y="385.5"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="cloudplay" width="39" height="39"/>
+        <image name="complete-normal" width="39" height="39"/>
+        <image name="complete-pressed.png" width="39" height="39"/>
+        <image name="delete-normal" width="39" height="39"/>
+        <image name="upload-normal" width="39" height="39"/>
+        <image name="upload-pressed.png" width="39" height="39"/>
+    </resources>
+</document>

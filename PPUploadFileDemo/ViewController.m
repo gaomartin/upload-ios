@@ -7,36 +7,26 @@
 //
 
 #import "ViewController.h"
+
 #import <MobileCoreServices/MobileCoreServices.h>
-#import "BZFidDataController.h"
-#import "NSString+Hashes.h"
-#import "PPUploadFileData.h"
-#import "PPUploadHashTool.h"
-#import "BZTokenDataController.h"
-#import "BZUploadRangeDataController.h"
 #import <AssetsLibrary/AssetsLibrary.h>
-#import "BZRangeInfo.h"
-#import "BZFileUploadDataController.h"
+#import "VideoStatusTableViewCell.h"
 
-@interface ViewController ()<UIImagePickerControllerDelegate, UINavigationControllerDelegate, BZDataControllerDelegate, PPUploadHashToolDelegate>
+#import <PPTVFileUpload/PPTVFileUpload.h>
 
-@property (nonatomic, strong) NSData *fileData;
+@interface ViewController ()<UIImagePickerControllerDelegate, UINavigationControllerDelegate, PPTVUploadDelegate, UploadTableViewCellDelegate>
+
+@property (nonatomic, strong) PPTVFileUpload *fileUpload;
+@property (nonatomic, strong) NSString *filePath;
 @property (nonatomic, strong) IBOutlet UILabel *videoPathLabel;
-@property (nonatomic, strong) BZFidDataController *fidDataController;
-@property (nonatomic, strong) NSString *ppfeature;
 
-@property (nonatomic, strong) PPUploadFileData *uploadFile;
-@property (nonatomic, strong) PPUploadHashTool *uploadHashTool;
-@property (nonatomic, strong) IBOutlet UILabel *ppfeatureLabel;
-@property (nonatomic, strong) IBOutlet UILabel *fidInfoLabel;
+@property (nonatomic, weak) IBOutlet UITextField *fileTitle;
+@property (nonatomic, weak) IBOutlet UITextField *fileDetail;
 
-@property (nonatomic, strong) BZTokenDataController *tokenDataController;
-@property (nonatomic, strong) IBOutlet UILabel *tokenLabel;
+@property (nonatomic, weak) IBOutlet UITableView *uploadTableView;//table视图
+@property (nonatomic, strong) NSMutableArray *uploadList;//上传列表
+@property (nonatomic, assign) long long fileSize;
 
-@property (nonatomic, strong) BZUploadRangeDataController *uploadRangeDataController;
-@property (nonatomic, strong) IBOutlet UILabel *rangesLabel;
-
-@property (nonatomic, strong) BZFileUploadDataController *fileUploadDataController;
 
 @end
 
@@ -46,9 +36,10 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-    self.uploadFile = [[PPUploadFileData alloc] init];
-    self.uploadHashTool = [[PPUploadHashTool alloc] init];
-    self.uploadHashTool.delegate = self;
+    self.fileUpload = [[PPTVFileUpload alloc] initWithDomainName:@"http://115.231.44.26:8081/uploadtest/uptoken"];
+    self.fileUpload.uploadDelegate = self;
+    
+    [self uploadFileStatusChange];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -95,25 +86,25 @@
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     //ALAssetsLibrary 获取图片和视频
-    ALAssetsLibrary *assetLibrary = [[ALAssetsLibrary alloc]init];
+    ALAssetsLibrary *assetLibrary = [[ALAssetsLibrary alloc] init];
     
     NSURL *url = [info objectForKey:UIImagePickerControllerReferenceURL];
     
-    if (url){
+    if (url){//本地视频
         [assetLibrary assetForURL:url resultBlock:^(ALAsset *asset) {
             ALAssetRepresentation *rep = [asset defaultRepresentation];
-            Byte *buffer = (Byte*)malloc((unsigned long)rep.size);
-            NSUInteger buffered = [rep getBytes:buffer fromOffset:0.0 length:((unsigned long)rep.size) error:nil];
-            self.fileData = [NSData dataWithBytesNoCopy:buffer length:buffered freeWhenDone:YES];
-            
-            NSURL* mediaURL = asset.defaultRepresentation.url;
-            NSString *videoPath = [NSString stringWithFormat:@"%@",mediaURL];
+            NSString *videoPath = [NSString stringWithFormat:@"%@", rep.url];
             self.videoPathLabel.text = videoPath;
-            self.uploadFile.assetURL = videoPath;
+            self.filePath = videoPath;
+            self.fileSize =  rep.size;
+            
+            NSLog(@"self.fileSize=%lld, %.2fM", self.fileSize, self.fileSize / (1024.0*1024.0));
         } failureBlock:nil];
-    } else {
+    } else {//拍摄视频
         url = [info objectForKey:UIImagePickerControllerMediaURL];
-        self.fileData = [NSData dataWithContentsOfFile:[url path]];
+        NSData *fileData = [NSData dataWithContentsOfFile:[url path]];
+        self.fileSize = [fileData length];
+        NSLog(@"self.fileSize=%lld, %.2fM", self.fileSize, self.fileSize / (1024.0*1024.0));
         
         ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
         [library writeVideoAtPathToSavedPhotosAlbum:url
@@ -123,13 +114,12 @@
                                         } else {
                                             NSLog(@"Save video succeed.");
                                             self.videoPathLabel.text = [NSString stringWithFormat:@"%@",assetURL];
-                                            self.uploadFile.assetURL = [NSString stringWithFormat:@"%@",assetURL];
-                                            
-                                            
+                                            self.filePath = [assetURL absoluteString];
                                         }
                                     }];
     }
-    
+    NSLog(@"picker.videoQuality=%zd",picker.videoQuality);
+   
     [self dismissViewControllerAnimated:YES completion:^{}];
 }
 
@@ -138,138 +128,118 @@
     [self dismissViewControllerAnimated:YES completion:^{}];
 }
 
-
-- (IBAction)createPPfeature:(id)sender
+- (IBAction)startUploadVideo:(id)sender
 {
-    [self.uploadHashTool computePPfeature: self.uploadFile];
-}
-
-- (void)requestFidInfo
-{
-    if (!self.fidDataController) {
-        self.fidDataController = [[BZFidDataController alloc] initWithDelegate:self];
-    }
-    
-    //apitk定义: apitk = MD5(key + url)
-    NSString *apitk = [[NSString stringWithFormat:@"%@%@v1/api/channel/upload",[BZUserModel sharedBZUserModel].key,PPCLOUD_TEST_URL] md5];
-    NSString *length = [NSString stringWithFormat:@"%zd",[self.fileData length]];
-    
-    if (![length integerValue]) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"请前往相册选择视频" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
+    if (![self.filePath length]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Tips" message:@"请先选择视频或者拍摄一段视频" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
         [alert show];
         return;
     }
     
-    NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                          [BZUserModel sharedBZUserModel].username,     @"username",
-                          apitk,                                        @"apitk",
-                          [BZUserModel sharedBZUserModel].categoryid,   @"categoryid",
-                          @"videoTest",                                 @"name",
-                          length,                                       @"length",
-                          self.ppfeature,                               @"ppfeature",
-                          nil];
-    
-    [self.fidDataController requestWithArgs:dict];
-}
-
-- (IBAction)requestTokenInfo
-{
-    if (!self.tokenDataController) {
-        self.tokenDataController = [[BZTokenDataController alloc] initWithDelegate:self];
+    //ios选择本地视频后, 会自动压缩
+    //测试环境的swift配置有问题， 小于1M的无法提交成功
+    if (self.fileSize < 1024*1024 ) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Tips" message:@"测试环境的swift配置有问题， 小于1M的无法提交成功" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        [alert show];
+        return;
     }
     
-    NSString *apitk = [[NSString stringWithFormat:@"%@%@v1/api/token/uptoken",[BZUserModel sharedBZUserModel].key, PPCLOUD_TEST_URL] md5];
-    
-    NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                 [BZUserModel sharedBZUserModel].username,      @"username",
-                                 apitk,                                         @"apitk",
-                                 self.ppfeature,                                @"ppfeature",
-                                 nil];
-    [self.tokenDataController requestWithArgs:dict];
-}
-
-- (IBAction)requestUploadRange:(id)sender
-{
-    if (!self.uploadRangeDataController) {
-        self.uploadRangeDataController = [[BZUploadRangeDataController alloc] initWithDelegate:self];
+    NSString *title = [NSString stringWithFormat:@"iosUploadTest%zd",self.fileSize];//主要是为了防止重名, 不好测试
+    if ([self.fileTitle.text length]) {
+        title = self.fileTitle.text;
     }
     
-    ///fsvc/3/file/{fid}/action/uploadrange?feature_pplive=1234567890abcdef&segs=3&fromcp=ppcloud&inner=false
-    NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                 self.ppfeature,    @"feature_pplive",
-                                 @"3",              @"segs",
-                                 @"ppcloud",        @"fromcp",
-                                 @"false",          @"inner",
-                                 nil];
+    [self.fileUpload startUploadFileWithPath:self.filePath title:title detail:self.fileDetail.text];
     
-    self.uploadRangeDataController.fid = self.fidDataController.fid;
-    NSDictionary *headField = [NSDictionary dictionaryWithObjectsAndKeys:self.tokenDataController.token, @"Authorization", nil];
-    self.uploadRangeDataController.headerField = headField;
-    
-    [self.uploadRangeDataController requestWithArgs:dict];
+    self.fileTitle.text = @"";
+    self.fileDetail.text = @"";
 }
 
-#pragma mark - BZDataController
-
-//transcodeStatus > 200 表示秒传
-//transcodeStatus  = 0, 转码, 就是需要上传
-- (void)loadingDataFinished:(BZDataController *)controller
+- (BOOL)textFieldShouldReturn:(UITextField *)textField;
 {
-    if (controller == self.fidDataController) {
-        self.fidInfoLabel.text = [NSString stringWithFormat:@"fid=%@, transcodeStatus=%zd",
-                                  self.fidDataController.fid, self.fidDataController.transcodeStatus];
-    } else if (controller == self.tokenDataController) {
-        self.tokenLabel.text = self.tokenDataController.token;
-    } else if (controller == self.uploadRangeDataController) {
-        self.rangesLabel.text = [NSString stringWithFormat:@"ranges: %zd", [self.uploadRangeDataController.rangesList count]];
-        [self startUploadFile];
+    [self.fileTitle resignFirstResponder];
+    [self.fileDetail resignFirstResponder];
+    
+    return YES;
+}
+
+#pragma mark - PPTVUploadDelegate
+//提交节目信息
+- (void)getVideoInfoSuccess
+{
+    NSLog(@"getVideoInfoSuccess");
+}
+
+- (void)getVideoInfoFailed:(NSString *)message
+{
+    NSLog(@"getVideoInfoFailed = %@",message);
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Tips" message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    [alert show];
+}
+
+- (void)uploadFileStatusChange
+{
+    NSLog(@"uploadFileStatusChange");
+    NSMutableArray *array = [NSMutableArray arrayWithArray: self.fileUpload.allUploadFiles];
+    self.uploadList = [NSMutableArray arrayWithArray:[[array reverseObjectEnumerator] allObjects]];
+    [self.uploadTableView reloadData];
+}
+
+#pragma mark - tableview
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return [self.uploadList count];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *CellIdentifier = @"Cell";
+    
+    VideoStatusTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (!cell) {
+        cell = [[[NSBundle mainBundle] loadNibNamed:@"VideoStatusTableViewCell" owner:nil options:nil] objectAtIndex:0];
+        cell.backgroundColor = [UIColor clearColor];
     }
-}
-
-- (void)loadingData:(BZDataController *)controller failedWithError:(NSError *)error
-{
-    if (controller == self.fidDataController) {
-        self.fidInfoLabel.text = @"fid获取失败";
-    } else if (controller == self.tokenDataController) {
-        self.tokenLabel.text = @"token获取失败";
-        if ([self.tokenDataController.msg length]) {
-            self.tokenLabel.text = self.tokenDataController.msg;
-        }
-    } else if (controller == self.uploadRangeDataController) {
-         self.rangesLabel.text = @"ranges请求失败";
-    }
     
+    PPUploadFileData *fileData = [self.uploadList objectAtIndex:indexPath.row];
+    cell.cellTag = indexPath.row;
+    cell.delegate = self;
+    [cell showUploadFileInfo:fileData];
+    
+    return cell;
 }
 
-- (void)getPPfeature:(NSString*)PPfeature fileData:(PPUploadFileData*)fileData
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"PPfeature=%@",PPfeature);
-    self.ppfeature = PPfeature;
-    self.ppfeatureLabel.text = PPfeature;
-    [self requestFidInfo];
+    return 65;
 }
 
-- (void)startUploadFile
+
+#pragma mark-- UploadTableViewCellDelegate  Methods
+- (void)pauseOrContinueAction:(NSInteger)position
 {
-    for (int i=0; i<[self.uploadRangeDataController.rangesList count]; i++) {
-        BZRangeInfo *info = [self.uploadRangeDataController.rangesList objectAtIndex:i];
-        NSData *data = [self.fileData subdataWithRange:NSMakeRange(info.start, info.end)];
-        [self uploadFileWithUrl:info.upload_url andData:data];
+    PPUploadFileData *uploadFile = [self.uploadList objectAtIndex:position];
+    //处于等待或者上传状态的话就设置为暂停状态
+    if (uploadFile.status == UPStatusWait || uploadFile.status == UPStatusUploading) {
+        [self.fileUpload changeUploadingFile:uploadFile toStatus:UPStatusPause];
+    }
+    //处于暂停或者正常状态的话就设置为等待状态
+    else if(uploadFile.status == UPStatusPause || uploadFile.status == UPStatusNormal){
+        [self.fileUpload changeUploadingFile:uploadFile toStatus:UPStatusWait];
     }
 }
 
-- (void)uploadFileWithUrl:(NSString *)upload_url andData:(NSData *)data
+- (void)cancelAction:(NSInteger)position
 {
-    if (!self.fileUploadDataController) {
-        self.fileUploadDataController = [[BZFileUploadDataController alloc] initWithDelegate:self];
-    }
-    
-    NSDictionary *headField = [NSDictionary dictionaryWithObjectsAndKeys:self.tokenDataController.token, @"Authorization", nil];
-    self.fileUploadDataController.headerField = headField;
-    self.fileUploadDataController.data = data;
-    self.fileUploadDataController.fullUrl = [NSURL URLWithString:upload_url];
-    [self.fileUploadDataController requestWithArgs:nil];
+    PPUploadFileData *uploadFile = [self.uploadList objectAtIndex:position];
+    [self.fileUpload removeUploadFile:uploadFile];
 }
 
+- (void)reUploadAction:(NSInteger)position
+{
+    PPUploadFileData *uploadFile = [self.uploadList objectAtIndex:position];
+    [self.fileUpload changeUploadingFile:uploadFile toStatus:UPStatusWait];
+}
 
 @end

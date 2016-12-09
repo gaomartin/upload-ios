@@ -1,0 +1,35 @@
+//
+//  PrefixHeader.pch
+//  PPUploadFileDemo
+//
+//  Created by bobzhang on 16/7/27.
+//  Copyright © 2016年 bobzhang. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+#import "SBJSONCategories.h"
+#import "PPObjectSafe.h"
+#import "SynthesizeSingleton.h"
+#import "BZUserModel.h"
+#import "PPUploadFileData.h"
+#import "PPFileUploadManager.h"
+#import "NSArray+ObjectAtIndexWithBoundsCheck.h"
+#import "PPCloudErrorCodeDefine.h"
+#import "PPUploadFileData_Internal.h"
+
+/*
+ 公有云测试环境域名：api.cloudplay.ppqa.com
+ 公有云线上环境域名：api.cloudplay.pptv.com
+ */
+
+#define PPCLOUD_PUBLIC_URL       @"http://api.cloudplay.pptv.com"
+#define PPCLOUD_PUBLIC_TEST_URL  @"http://api.cloudplay.ppqa.com"
+
+#endif /* PrefixHeader_pch */

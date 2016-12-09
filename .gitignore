@@ -19,6 +19,7 @@ xcuserdata
 profile
 *.moved-aside
 DerivedData
+*.xcscheme
 
 # Pods
 Pods/Target Support Files/*

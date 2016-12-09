@@ -1,0 +1,464 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		4B4135751D5C0D7000E7154E /* NSArray+ObjectAtIndexWithBoundsCheck.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B41354F1D5C0D7000E7154E /* NSArray+ObjectAtIndexWithBoundsCheck.m */; };
+		4B4135761D5C0D7000E7154E /* NSString+Hashes.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B4135511D5C0D7000E7154E /* NSString+Hashes.m */; };
+		4B4135771D5C0D7000E7154E /* NSString+PPURL.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B4135531D5C0D7000E7154E /* NSString+PPURL.m */; };
+		4B4135781D5C0D7000E7154E /* NSArray+SafeValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B4135561D5C0D7000E7154E /* NSArray+SafeValue.m */; };
+		4B4135791D5C0D7000E7154E /* NSArray+StringValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B4135581D5C0D7000E7154E /* NSArray+StringValue.m */; };
+		4B41357A1D5C0D7000E7154E /* NSDictionary+SafeValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B41355A1D5C0D7000E7154E /* NSDictionary+SafeValue.m */; };
+		4B41357B1D5C0D7000E7154E /* NSDictionary+StringValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B41355C1D5C0D7000E7154E /* NSDictionary+StringValue.m */; };
+		4B41357C1D5C0D7000E7154E /* NSObject+SafeValueWithJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B41355E1D5C0D7000E7154E /* NSObject+SafeValueWithJSON.m */; };
+		4B41357D1D5C0D7000E7154E /* SBJSONCategories.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B4135611D5C0D7000E7154E /* SBJSONCategories.m */; };
+		4B41357E1D5C0D7000E7154E /* PPFileUploadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B4135661D5C0D7000E7154E /* PPFileUploadManager.m */; };
+		4B41357F1D5C0D7000E7154E /* PPUploadHashTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B4135681D5C0D7000E7154E /* PPUploadHashTool.m */; };
+		4B4135801D5C0D7000E7154E /* PPUploadRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B41356A1D5C0D7000E7154E /* PPUploadRequest.m */; };
+		4B4135811D5C0D7000E7154E /* BZRangeInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B41356D1D5C0D7000E7154E /* BZRangeInfo.m */; };
+		4B4135831D5C0D7000E7154E /* PPUploadFileData.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B4135711D5C0D7000E7154E /* PPUploadFileData.m */; };
+		4B4135841D5C0D7000E7154E /* PPTVFileUpload.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B4135731D5C0D7000E7154E /* PPTVFileUpload.m */; };
+		4B4135861D5C0D8700E7154E /* NSArray+ObjectAtIndexWithBoundsCheck.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B41354E1D5C0D7000E7154E /* NSArray+ObjectAtIndexWithBoundsCheck.h */; };
+		4B4135871D5C0D8700E7154E /* NSString+Hashes.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B4135501D5C0D7000E7154E /* NSString+Hashes.h */; };
+		4B4135881D5C0D8700E7154E /* NSString+PPURL.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B4135521D5C0D7000E7154E /* NSString+PPURL.h */; };
+		4B4135891D5C0D8700E7154E /* NSArray+SafeValue.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B4135551D5C0D7000E7154E /* NSArray+SafeValue.h */; };
+		4B41358A1D5C0D8700E7154E /* NSArray+StringValue.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B4135571D5C0D7000E7154E /* NSArray+StringValue.h */; };
+		4B41358B1D5C0D8700E7154E /* NSDictionary+SafeValue.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B4135591D5C0D7000E7154E /* NSDictionary+SafeValue.h */; };
+		4B41358C1D5C0D8700E7154E /* NSDictionary+StringValue.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B41355B1D5C0D7000E7154E /* NSDictionary+StringValue.h */; };
+		4B41358D1D5C0D8700E7154E /* NSObject+SafeValueWithJSON.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B41355D1D5C0D7000E7154E /* NSObject+SafeValueWithJSON.h */; };
+		4B41358E1D5C0D8700E7154E /* PPObjectSafe.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B41355F1D5C0D7000E7154E /* PPObjectSafe.h */; };
+		4B41358F1D5C0D8700E7154E /* SBJSONCategories.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B4135601D5C0D7000E7154E /* SBJSONCategories.h */; };
+		4B4135901D5C0D8700E7154E /* SynthesizeSingleton.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B4135621D5C0D7000E7154E /* SynthesizeSingleton.h */; };
+		4B4135911D5C0D8700E7154E /* PPCloudErrorCodeDefine.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B4135641D5C0D7000E7154E /* PPCloudErrorCodeDefine.h */; };
+		4B4135921D5C0D8700E7154E /* PPFileUploadManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B4135651D5C0D7000E7154E /* PPFileUploadManager.h */; };
+		4B4135931D5C0D8700E7154E /* PPUploadHashTool.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B4135671D5C0D7000E7154E /* PPUploadHashTool.h */; };
+		4B4135941D5C0D8700E7154E /* PPUploadRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B4135691D5C0D7000E7154E /* PPUploadRequest.h */; };
+		4B4135951D5C0D8700E7154E /* BZRangeInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B41356C1D5C0D7000E7154E /* BZRangeInfo.h */; };
+		4B4135971D5C0D8700E7154E /* PPUploadFileData.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B4135701D5C0D7000E7154E /* PPUploadFileData.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4B4135981D5C0D8700E7154E /* PPTVFileUpload.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B4135721D5C0D7000E7154E /* PPTVFileUpload.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4B4136071D5C179800E7154E /* PrefixHeader.pch in Headers */ = {isa = PBXBuildFile; fileRef = 4B4135741D5C0D7000E7154E /* PrefixHeader.pch */; };
+		4BE28DAA1DED7BC300EF0F90 /* BZUserModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 4BE28DA81DED7BC300EF0F90 /* BZUserModel.h */; };
+		4BE28DAB1DED7BC300EF0F90 /* BZUserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BE28DA91DED7BC300EF0F90 /* BZUserModel.m */; };
+		4BEB6C581DEED5C700D4994E /* PPUploadFileData_Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 4BEB6C571DEED5C700D4994E /* PPUploadFileData_Internal.h */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		4B4135441D5C0C8400E7154E /* PPTVFileUpload.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PPTVFileUpload.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4B4135471D5C0C8400E7154E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4B41354E1D5C0D7000E7154E /* NSArray+ObjectAtIndexWithBoundsCheck.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+ObjectAtIndexWithBoundsCheck.h"; sourceTree = "<group>"; };
+		4B41354F1D5C0D7000E7154E /* NSArray+ObjectAtIndexWithBoundsCheck.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+ObjectAtIndexWithBoundsCheck.m"; sourceTree = "<group>"; };
+		4B4135501D5C0D7000E7154E /* NSString+Hashes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Hashes.h"; sourceTree = "<group>"; };
+		4B4135511D5C0D7000E7154E /* NSString+Hashes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Hashes.m"; sourceTree = "<group>"; };
+		4B4135521D5C0D7000E7154E /* NSString+PPURL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+PPURL.h"; sourceTree = "<group>"; };
+		4B4135531D5C0D7000E7154E /* NSString+PPURL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+PPURL.m"; sourceTree = "<group>"; };
+		4B4135551D5C0D7000E7154E /* NSArray+SafeValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+SafeValue.h"; sourceTree = "<group>"; };
+		4B4135561D5C0D7000E7154E /* NSArray+SafeValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+SafeValue.m"; sourceTree = "<group>"; };
+		4B4135571D5C0D7000E7154E /* NSArray+StringValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+StringValue.h"; sourceTree = "<group>"; };
+		4B4135581D5C0D7000E7154E /* NSArray+StringValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+StringValue.m"; sourceTree = "<group>"; };
+		4B4135591D5C0D7000E7154E /* NSDictionary+SafeValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+SafeValue.h"; sourceTree = "<group>"; };
+		4B41355A1D5C0D7000E7154E /* NSDictionary+SafeValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+SafeValue.m"; sourceTree = "<group>"; };
+		4B41355B1D5C0D7000E7154E /* NSDictionary+StringValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+StringValue.h"; sourceTree = "<group>"; };
+		4B41355C1D5C0D7000E7154E /* NSDictionary+StringValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+StringValue.m"; sourceTree = "<group>"; };
+		4B41355D1D5C0D7000E7154E /* NSObject+SafeValueWithJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SafeValueWithJSON.h"; sourceTree = "<group>"; };
+		4B41355E1D5C0D7000E7154E /* NSObject+SafeValueWithJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SafeValueWithJSON.m"; sourceTree = "<group>"; };
+		4B41355F1D5C0D7000E7154E /* PPObjectSafe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPObjectSafe.h; sourceTree = "<group>"; };
+		4B4135601D5C0D7000E7154E /* SBJSONCategories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJSONCategories.h; sourceTree = "<group>"; };
+		4B4135611D5C0D7000E7154E /* SBJSONCategories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJSONCategories.m; sourceTree = "<group>"; };
+		4B4135621D5C0D7000E7154E /* SynthesizeSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SynthesizeSingleton.h; sourceTree = "<group>"; };
+		4B4135641D5C0D7000E7154E /* PPCloudErrorCodeDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPCloudErrorCodeDefine.h; sourceTree = "<group>"; };
+		4B4135651D5C0D7000E7154E /* PPFileUploadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPFileUploadManager.h; sourceTree = "<group>"; };
+		4B4135661D5C0D7000E7154E /* PPFileUploadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPFileUploadManager.m; sourceTree = "<group>"; };
+		4B4135671D5C0D7000E7154E /* PPUploadHashTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPUploadHashTool.h; sourceTree = "<group>"; };
+		4B4135681D5C0D7000E7154E /* PPUploadHashTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPUploadHashTool.m; sourceTree = "<group>"; };
+		4B4135691D5C0D7000E7154E /* PPUploadRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPUploadRequest.h; sourceTree = "<group>"; };
+		4B41356A1D5C0D7000E7154E /* PPUploadRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPUploadRequest.m; sourceTree = "<group>"; };
+		4B41356C1D5C0D7000E7154E /* BZRangeInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BZRangeInfo.h; sourceTree = "<group>"; };
+		4B41356D1D5C0D7000E7154E /* BZRangeInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BZRangeInfo.m; sourceTree = "<group>"; };
+		4B4135701D5C0D7000E7154E /* PPUploadFileData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPUploadFileData.h; sourceTree = "<group>"; };
+		4B4135711D5C0D7000E7154E /* PPUploadFileData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPUploadFileData.m; sourceTree = "<group>"; };
+		4B4135721D5C0D7000E7154E /* PPTVFileUpload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPTVFileUpload.h; sourceTree = "<group>"; };
+		4B4135731D5C0D7000E7154E /* PPTVFileUpload.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPTVFileUpload.m; sourceTree = "<group>"; };
+		4B4135741D5C0D7000E7154E /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		4BE28DA81DED7BC300EF0F90 /* BZUserModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BZUserModel.h; sourceTree = "<group>"; };
+		4BE28DA91DED7BC300EF0F90 /* BZUserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BZUserModel.m; sourceTree = "<group>"; };
+		4BEB6C571DEED5C700D4994E /* PPUploadFileData_Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPUploadFileData_Internal.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		4B4135411D5C0C8400E7154E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		4B41353B1D5C0C8400E7154E = {
+			isa = PBXGroup;
+			children = (
+				4B4135461D5C0C8400E7154E /* PPTVFileUpload */,
+				4B4135451D5C0C8400E7154E /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		4B4135451D5C0C8400E7154E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4B4135441D5C0C8400E7154E /* PPTVFileUpload.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		4B4135461D5C0C8400E7154E /* PPTVFileUpload */ = {
+			isa = PBXGroup;
+			children = (
+				4B41354D1D5C0D7000E7154E /* Category */,
+				4B4135631D5C0D7000E7154E /* Manager */,
+				4B41356B1D5C0D7000E7154E /* Model */,
+				4B4135721D5C0D7000E7154E /* PPTVFileUpload.h */,
+				4B4135731D5C0D7000E7154E /* PPTVFileUpload.m */,
+				4B4135741D5C0D7000E7154E /* PrefixHeader.pch */,
+				4B4135471D5C0C8400E7154E /* Info.plist */,
+			);
+			path = PPTVFileUpload;
+			sourceTree = "<group>";
+		};
+		4B41354D1D5C0D7000E7154E /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				4B41354E1D5C0D7000E7154E /* NSArray+ObjectAtIndexWithBoundsCheck.h */,
+				4B41354F1D5C0D7000E7154E /* NSArray+ObjectAtIndexWithBoundsCheck.m */,
+				4B4135501D5C0D7000E7154E /* NSString+Hashes.h */,
+				4B4135511D5C0D7000E7154E /* NSString+Hashes.m */,
+				4B4135521D5C0D7000E7154E /* NSString+PPURL.h */,
+				4B4135531D5C0D7000E7154E /* NSString+PPURL.m */,
+				4B4135541D5C0D7000E7154E /* SafeValue */,
+				4B4135601D5C0D7000E7154E /* SBJSONCategories.h */,
+				4B4135611D5C0D7000E7154E /* SBJSONCategories.m */,
+				4B4135621D5C0D7000E7154E /* SynthesizeSingleton.h */,
+			);
+			path = Category;
+			sourceTree = "<group>";
+		};
+		4B4135541D5C0D7000E7154E /* SafeValue */ = {
+			isa = PBXGroup;
+			children = (
+				4B4135551D5C0D7000E7154E /* NSArray+SafeValue.h */,
+				4B4135561D5C0D7000E7154E /* NSArray+SafeValue.m */,
+				4B4135571D5C0D7000E7154E /* NSArray+StringValue.h */,
+				4B4135581D5C0D7000E7154E /* NSArray+StringValue.m */,
+				4B4135591D5C0D7000E7154E /* NSDictionary+SafeValue.h */,
+				4B41355A1D5C0D7000E7154E /* NSDictionary+SafeValue.m */,
+				4B41355B1D5C0D7000E7154E /* NSDictionary+StringValue.h */,
+				4B41355C1D5C0D7000E7154E /* NSDictionary+StringValue.m */,
+				4B41355D1D5C0D7000E7154E /* NSObject+SafeValueWithJSON.h */,
+				4B41355E1D5C0D7000E7154E /* NSObject+SafeValueWithJSON.m */,
+				4B41355F1D5C0D7000E7154E /* PPObjectSafe.h */,
+			);
+			path = SafeValue;
+			sourceTree = "<group>";
+		};
+		4B4135631D5C0D7000E7154E /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				4B4135641D5C0D7000E7154E /* PPCloudErrorCodeDefine.h */,
+				4B4135651D5C0D7000E7154E /* PPFileUploadManager.h */,
+				4B4135661D5C0D7000E7154E /* PPFileUploadManager.m */,
+				4B4135671D5C0D7000E7154E /* PPUploadHashTool.h */,
+				4B4135681D5C0D7000E7154E /* PPUploadHashTool.m */,
+				4B4135691D5C0D7000E7154E /* PPUploadRequest.h */,
+				4B41356A1D5C0D7000E7154E /* PPUploadRequest.m */,
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
+		4B41356B1D5C0D7000E7154E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				4BE28DA81DED7BC300EF0F90 /* BZUserModel.h */,
+				4BE28DA91DED7BC300EF0F90 /* BZUserModel.m */,
+				4B41356C1D5C0D7000E7154E /* BZRangeInfo.h */,
+				4B41356D1D5C0D7000E7154E /* BZRangeInfo.m */,
+				4BEB6C571DEED5C700D4994E /* PPUploadFileData_Internal.h */,
+				4B4135701D5C0D7000E7154E /* PPUploadFileData.h */,
+				4B4135711D5C0D7000E7154E /* PPUploadFileData.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		4B4135851D5C0D7500E7154E /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4B4135971D5C0D8700E7154E /* PPUploadFileData.h in Headers */,
+				4B4135981D5C0D8700E7154E /* PPTVFileUpload.h in Headers */,
+				4B4135861D5C0D8700E7154E /* NSArray+ObjectAtIndexWithBoundsCheck.h in Headers */,
+				4B4135871D5C0D8700E7154E /* NSString+Hashes.h in Headers */,
+				4B4136071D5C179800E7154E /* PrefixHeader.pch in Headers */,
+				4B4135881D5C0D8700E7154E /* NSString+PPURL.h in Headers */,
+				4B4135891D5C0D8700E7154E /* NSArray+SafeValue.h in Headers */,
+				4B41358A1D5C0D8700E7154E /* NSArray+StringValue.h in Headers */,
+				4B41358B1D5C0D8700E7154E /* NSDictionary+SafeValue.h in Headers */,
+				4B41358C1D5C0D8700E7154E /* NSDictionary+StringValue.h in Headers */,
+				4B41358D1D5C0D8700E7154E /* NSObject+SafeValueWithJSON.h in Headers */,
+				4B41358E1D5C0D8700E7154E /* PPObjectSafe.h in Headers */,
+				4B41358F1D5C0D8700E7154E /* SBJSONCategories.h in Headers */,
+				4B4135901D5C0D8700E7154E /* SynthesizeSingleton.h in Headers */,
+				4B4135911D5C0D8700E7154E /* PPCloudErrorCodeDefine.h in Headers */,
+				4BEB6C581DEED5C700D4994E /* PPUploadFileData_Internal.h in Headers */,
+				4BE28DAA1DED7BC300EF0F90 /* BZUserModel.h in Headers */,
+				4B4135921D5C0D8700E7154E /* PPFileUploadManager.h in Headers */,
+				4B4135931D5C0D8700E7154E /* PPUploadHashTool.h in Headers */,
+				4B4135941D5C0D8700E7154E /* PPUploadRequest.h in Headers */,
+				4B4135951D5C0D8700E7154E /* BZRangeInfo.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		4B4135431D5C0C8400E7154E /* PPTVFileUpload */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4B41354A1D5C0C8400E7154E /* Build configuration list for PBXNativeTarget "PPTVFileUpload" */;
+			buildPhases = (
+				4B4135401D5C0C8400E7154E /* Sources */,
+				4B4135411D5C0C8400E7154E /* Frameworks */,
+				4B4135421D5C0C8400E7154E /* Resources */,
+				4B4135851D5C0D7500E7154E /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PPTVFileUpload;
+			productName = PPTVFileUpload;
+			productReference = 4B4135441D5C0C8400E7154E /* PPTVFileUpload.framework */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		4B41353C1D5C0C8400E7154E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = PPTV;
+				TargetAttributes = {
+					4B4135431D5C0C8400E7154E = {
+						CreatedOnToolsVersion = 7.3.1;
+					};
+				};
+			};
+			buildConfigurationList = 4B41353F1D5C0C8400E7154E /* Build configuration list for PBXProject "PPTVFileUpload" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 4B41353B1D5C0C8400E7154E;
+			productRefGroup = 4B4135451D5C0C8400E7154E /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				4B4135431D5C0C8400E7154E /* PPTVFileUpload */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		4B4135421D5C0C8400E7154E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		4B4135401D5C0C8400E7154E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4B4135831D5C0D7000E7154E /* PPUploadFileData.m in Sources */,
+				4B4135791D5C0D7000E7154E /* NSArray+StringValue.m in Sources */,
+				4B41357B1D5C0D7000E7154E /* NSDictionary+StringValue.m in Sources */,
+				4B4135751D5C0D7000E7154E /* NSArray+ObjectAtIndexWithBoundsCheck.m in Sources */,
+				4BE28DAB1DED7BC300EF0F90 /* BZUserModel.m in Sources */,
+				4B4135811D5C0D7000E7154E /* BZRangeInfo.m in Sources */,
+				4B41357D1D5C0D7000E7154E /* SBJSONCategories.m in Sources */,
+				4B4135781D5C0D7000E7154E /* NSArray+SafeValue.m in Sources */,
+				4B41357C1D5C0D7000E7154E /* NSObject+SafeValueWithJSON.m in Sources */,
+				4B41357A1D5C0D7000E7154E /* NSDictionary+SafeValue.m in Sources */,
+				4B4135841D5C0D7000E7154E /* PPTVFileUpload.m in Sources */,
+				4B41357F1D5C0D7000E7154E /* PPUploadHashTool.m in Sources */,
+				4B4135761D5C0D7000E7154E /* NSString+Hashes.m in Sources */,
+				4B41357E1D5C0D7000E7154E /* PPFileUploadManager.m in Sources */,
+				4B4135801D5C0D7000E7154E /* PPUploadRequest.m in Sources */,
+				4B4135771D5C0D7000E7154E /* NSString+PPURL.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		4B4135481D5C0C8400E7154E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		4B4135491D5C0C8400E7154E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		4B41354B1D5C0C8400E7154E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(PROJECT_DIR)/PPTVFileUpload/PrefixHeader.pch";
+				INFOPLIST_FILE = PPTVFileUpload/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LINK_WITH_STANDARD_LIBRARIES = NO;
+				MACH_O_TYPE = mh_object;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pptv.PPTVFileUpload;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = NO;
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
+				VALID_ARCHS = "arm64 armv7";
+				WRAPPER_EXTENSION = framework;
+			};
+			name = Debug;
+		};
+		4B41354C1D5C0C8400E7154E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(PROJECT_DIR)/PPTVFileUpload/PrefixHeader.pch";
+				INFOPLIST_FILE = PPTVFileUpload/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LINK_WITH_STANDARD_LIBRARIES = NO;
+				MACH_O_TYPE = mh_object;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pptv.PPTVFileUpload;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = NO;
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
+				VALID_ARCHS = "arm64 armv7";
+				WRAPPER_EXTENSION = framework;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4B41353F1D5C0C8400E7154E /* Build configuration list for PBXProject "PPTVFileUpload" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4B4135481D5C0C8400E7154E /* Debug */,
+				4B4135491D5C0C8400E7154E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4B41354A1D5C0C8400E7154E /* Build configuration list for PBXNativeTarget "PPTVFileUpload" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4B41354B1D5C0C8400E7154E /* Debug */,
+				4B41354C1D5C0C8400E7154E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 4B41353C1D5C0C8400E7154E /* Project object */;
+}
