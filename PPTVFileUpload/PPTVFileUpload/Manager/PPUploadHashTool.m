@@ -31,35 +31,62 @@
 //计算PPfeature
 - (void)computePPfeature:(PPUploadFileData*)fileData
 {
-    ALAssetsLibrary *assetsLibrary = [[ALAssetsLibrary alloc]init];
-    [assetsLibrary assetForURL:[NSURL URLWithString:fileData.assetURL] resultBlock:^(ALAsset *asset)
-     {
-         NSString* sha1String = nil;
-         Byte buffer[61440];
-         NSUInteger bytesRead = 0;
-         long long offset = 0;
-         long long length = [[asset defaultRepresentation] size];
-         if(length < 65535)
+    if (fileData.isLocalCacheVideo) {
+        NSString* sha1String = nil;
+        Byte buffer[61440];
+        long long length = fileData.fileSize;
+        
+        NSData *data = [NSData dataWithContentsOfFile:fileData.path];
+        
+        if(length < 65535)
+        {
+            //- (void)getBytes:(void *)buffer range:(NSRange)range;
+            [data getBytes:buffer range:NSMakeRange(0, (NSInteger)length)];
+            sha1String = [self SHA1Hash:buffer bufferSize:(int)length];
+        } else {
+            [data getBytes:buffer range:NSMakeRange(0, 12288)];
+            [data getBytes:buffer range:NSMakeRange(12288, 24576)];
+            [data getBytes:buffer range:NSMakeRange(24576, 36864)];
+            [data getBytes:buffer range:NSMakeRange(36864, 49152)];
+            [data getBytes:buffer range:NSMakeRange(49152, 61440)];
+            
+            sha1String = [self SHA1Hash:buffer bufferSize:61440];
+        }
+        NSString *output = [NSString stringWithFormat:@"%lld_%@",length,sha1String];
+        fileData.ppfeature = output;
+        [self.delegate getPPfeature:output fileData:fileData];
+    }
+    else {
+        ALAssetsLibrary *assetsLibrary = [[ALAssetsLibrary alloc]init];
+        [assetsLibrary assetForURL:[NSURL URLWithString:fileData.assetURL] resultBlock:^(ALAsset *asset)
          {
-             bytesRead = [[asset defaultRepresentation] getBytes:buffer fromOffset:offset length:(NSUInteger)length error:nil];
-             sha1String = [self SHA1Hash:buffer bufferSize:(int)length];
-         } else {
-             bytesRead = [[asset defaultRepresentation] getBytes:buffer fromOffset:offset length:12288 error:nil];
-             offset = length/5;
-             bytesRead = [[asset defaultRepresentation] getBytes:(buffer+12288) fromOffset:offset length:12288 error:nil];
-             offset = 2*length/5;
-             bytesRead = [[asset defaultRepresentation] getBytes:(buffer+24576) fromOffset:offset length:12288 error:nil];
-             offset = 3*length/5;
-             bytesRead = [[asset defaultRepresentation] getBytes:(buffer+36864) fromOffset:offset length:12288 error:nil];
-             offset = length - 12288;
-             bytesRead = [[asset defaultRepresentation] getBytes:(buffer+49152) fromOffset:offset length:12288 error:nil];
-             
-             sha1String = [self SHA1Hash:buffer bufferSize:61440];
-         }
-         NSString *output = [NSString stringWithFormat:@"%lld_%@",length,sha1String];
-         fileData.ppfeature = output;
-         [self.delegate getPPfeature:output fileData:fileData];
-     } failureBlock:^(NSError *error){}];
+             NSString* sha1String = nil;
+             Byte buffer[61440];
+             NSUInteger bytesRead = 0;
+             long long offset = 0;
+             long long length = [[asset defaultRepresentation] size];
+             if(length < 65535)
+             {
+                 bytesRead = [[asset defaultRepresentation] getBytes:buffer fromOffset:offset length:(NSUInteger)length error:nil];
+                 sha1String = [self SHA1Hash:buffer bufferSize:(int)length];
+             } else {
+                 bytesRead = [[asset defaultRepresentation] getBytes:buffer fromOffset:offset length:12288 error:nil];
+                 offset = length/5;
+                 bytesRead = [[asset defaultRepresentation] getBytes:(buffer+12288) fromOffset:offset length:12288 error:nil];
+                 offset = 2*length/5;
+                 bytesRead = [[asset defaultRepresentation] getBytes:(buffer+24576) fromOffset:offset length:12288 error:nil];
+                 offset = 3*length/5;
+                 bytesRead = [[asset defaultRepresentation] getBytes:(buffer+36864) fromOffset:offset length:12288 error:nil];
+                 offset = length - 12288;
+                 bytesRead = [[asset defaultRepresentation] getBytes:(buffer+49152) fromOffset:offset length:12288 error:nil];
+                 
+                 sha1String = [self SHA1Hash:buffer bufferSize:61440];
+             }
+             NSString *output = [NSString stringWithFormat:@"%lld_%@",length,sha1String];
+             fileData.ppfeature = output;
+             [self.delegate getPPfeature:output fileData:fileData];
+         } failureBlock:^(NSError *error){}];
+    }
 }
 
 //计算dcid
@@ -89,7 +116,6 @@
          fileData.dcid = sha1String;
          [self.delegate getDcid:sha1String fileData:fileData];
      }failureBlock:^(NSError *error){}];
-    
 }
 
 //计算gcid
@@ -124,68 +150,117 @@
          fileData.gcid = output;
          [self.delegate getGcid:output fileData:fileData];
      } failureBlock:^(NSError *error){}];
-    
 }
 
 //计算MD5
 - (void)computeMD5:(PPUploadFileData*)fileData
 {
-    ALAssetsLibrary *assetsLibrary = [[ALAssetsLibrary alloc]init];
-    [assetsLibrary assetForURL:[NSURL URLWithString:fileData.assetURL] resultBlock:^(ALAsset *asset)
-     {
-         CC_MD5_CTX md5;
-         CC_MD5_Init(&md5);
-         
-         const NSUInteger bufferSize = 0x40000;
-         NSUInteger bytesRead = 0;
-         long long currentOffset = 0;
-         do
+    if (fileData.isLocalCacheVideo) {
+        CC_MD5_CTX md5;
+        CC_MD5_Init(&md5);
+        
+        const NSUInteger bufferSize = 0x40000;
+        
+        NSFileHandle *handle = [NSFileHandle fileHandleForReadingAtPath:fileData.path];
+
+        BOOL done = NO;
+        
+        while(!done)
+        {
+            NSData* fileData = [handle readDataOfLength: bufferSize];
+            
+            CC_MD5_Update(&md5, [fileData bytes], (CC_LONG)[fileData length]);
+            
+            if([fileData length] == 0) done = YES;
+        }
+        
+        unsigned char digest[CC_MD5_DIGEST_LENGTH];
+        CC_MD5_Final(digest, &md5);
+        NSMutableString* output = [NSMutableString stringWithCapacity:CC_MD5_DIGEST_LENGTH * 2];
+        for(int i = 0; i < CC_MD5_DIGEST_LENGTH; i++)
+            [output appendFormat:@"%02x", digest[i]];
+        fileData.md5 = output;
+        [self.delegate getMD5:output fileData:fileData];
+    }
+    else {
+        ALAssetsLibrary *assetsLibrary = [[ALAssetsLibrary alloc]init];
+        [assetsLibrary assetForURL:[NSURL URLWithString:fileData.assetURL] resultBlock:^(ALAsset *asset)
          {
-             @autoreleasepool
+             CC_MD5_CTX md5;
+             CC_MD5_Init(&md5);
+             
+             const NSUInteger bufferSize = 0x40000;
+             NSUInteger bytesRead = 0;
+             long long currentOffset = 0;
+             do
              {
-                 uint8_t buffer[bufferSize];
-                 bytesRead = [[asset defaultRepresentation] getBytes:(uint8_t*)buffer fromOffset:currentOffset length:bufferSize error:nil];
-                 if(bytesRead == 0)break;
-                 currentOffset +=bytesRead;
-                 CC_MD5_Update(&md5, buffer, (CC_LONG)bytesRead);
-             }
-         } while (bytesRead > 0);
-         
-         unsigned char digest[CC_MD5_DIGEST_LENGTH];
-         CC_MD5_Final(digest, &md5);
-         NSMutableString* output = [NSMutableString stringWithCapacity:CC_MD5_DIGEST_LENGTH * 2];
-         for(int i = 0; i < CC_MD5_DIGEST_LENGTH; i++)
-             [output appendFormat:@"%02x", digest[i]];
-         fileData.md5 = output;
-         [self.delegate getMD5:output fileData:fileData];
-     } failureBlock:^(NSError *error){}];
+                 @autoreleasepool
+                 {
+                     uint8_t buffer[bufferSize];
+                     bytesRead = [[asset defaultRepresentation] getBytes:(uint8_t*)buffer fromOffset:currentOffset length:bufferSize error:nil];
+                     if(bytesRead == 0)break;
+                     currentOffset += bytesRead;
+                     CC_MD5_Update(&md5, buffer, (CC_LONG)bytesRead);
+                 }
+             } while (bytesRead > 0);
+             
+             unsigned char digest[CC_MD5_DIGEST_LENGTH];
+             CC_MD5_Final(digest, &md5);
+             NSMutableString* output = [NSMutableString stringWithCapacity:CC_MD5_DIGEST_LENGTH * 2];
+             for(int i = 0; i < CC_MD5_DIGEST_LENGTH; i++)
+                 [output appendFormat:@"%02x", digest[i]];
+             fileData.md5 = output;
+             [self.delegate getMD5:output fileData:fileData];
+         } failureBlock:^(NSError *error){}];
+    }
 }
 
 //计算分段MD5
 - (void)computeMD5withStart:(long long)start end:(long long)end bid:(NSString*)bid uploadUrl:(NSString*)uploadUrl fileData:(PPUploadFileData*)fileData
 {
-    ALAssetsLibrary *assetsLibrary = [[ALAssetsLibrary alloc]init];
-    [assetsLibrary assetForURL:[NSURL URLWithString:fileData.assetURL] resultBlock:^(ALAsset *asset)
-     {
-         FileBlock* fileblock = [[FileBlock alloc] init];
-         CC_MD5_CTX md5Range;
-         CC_MD5_Init(&md5Range);
-         const NSUInteger bufferSize = (NSUInteger)(end-start+1);
-         uint8_t *buffer = (uint8_t *)malloc(sizeof(uint8_t)*bufferSize);
-         NSUInteger bytesRead = 0;
-         bytesRead = [[asset defaultRepresentation] getBytes:buffer fromOffset:start length:bufferSize error:nil];
-         NSData *readData = [[NSData alloc] initWithBytes:(const void*)buffer length:bufferSize];
-         CC_MD5_Update(&md5Range, buffer, (CC_LONG)bufferSize);
-         unsigned char digest[CC_MD5_DIGEST_LENGTH];
-         CC_MD5_Final(digest, &md5Range);
-         NSMutableString* output = [NSMutableString stringWithCapacity:CC_MD5_DIGEST_LENGTH * 2];
-         for(int i = 0; i < CC_MD5_DIGEST_LENGTH; i++)
-             [output appendFormat:@"%02x", digest[i]];
-         fileblock.blockData = readData;
-         fileblock.blockMD5 = output;
-         [self.delegate getBlockMD5:fileblock start:start end:end bid:bid uploadUrl:uploadUrl fileData:fileData];
-         free(buffer);
-     } failureBlock:^(NSError *error){}];
+    if (fileData.isLocalCacheVideo) {
+        FileBlock* fileblock = [[FileBlock alloc] init];
+        CC_MD5_CTX md5Range;
+        CC_MD5_Init(&md5Range);
+        
+        NSFileHandle *handle = [NSFileHandle fileHandleForReadingAtPath:fileData.path];
+        [handle seekToFileOffset:start];
+        NSData* readData = [handle readDataOfLength:(NSUInteger)(end-start+1)];
+        
+        CC_MD5_Update(&md5Range, [readData bytes], (CC_LONG)[readData length]);
+        unsigned char digest[CC_MD5_DIGEST_LENGTH];
+        CC_MD5_Final(digest, &md5Range);
+        NSMutableString* output = [NSMutableString stringWithCapacity:CC_MD5_DIGEST_LENGTH * 2];
+        for(int i = 0; i < CC_MD5_DIGEST_LENGTH; i++)
+            [output appendFormat:@"%02x", digest[i]];
+        fileblock.blockData = readData;
+        fileblock.blockMD5 = output;
+        [self.delegate getBlockMD5:fileblock start:start end:end bid:bid uploadUrl:uploadUrl fileData:fileData];
+    }
+    else {
+        ALAssetsLibrary *assetsLibrary = [[ALAssetsLibrary alloc]init];
+        [assetsLibrary assetForURL:[NSURL URLWithString:fileData.assetURL] resultBlock:^(ALAsset *asset)
+         {
+             FileBlock* fileblock = [[FileBlock alloc] init];
+             CC_MD5_CTX md5Range;
+             CC_MD5_Init(&md5Range);
+             const NSUInteger bufferSize = (NSUInteger)(end-start+1);
+             uint8_t *buffer = (uint8_t *)malloc(sizeof(uint8_t)*bufferSize);
+             NSUInteger bytesRead = 0;
+             bytesRead = [[asset defaultRepresentation] getBytes:buffer fromOffset:start length:bufferSize error:nil];
+             NSData *readData = [[NSData alloc] initWithBytes:(const void*)buffer length:bufferSize];
+             CC_MD5_Update(&md5Range, buffer, (CC_LONG)bufferSize);
+             unsigned char digest[CC_MD5_DIGEST_LENGTH];
+             CC_MD5_Final(digest, &md5Range);
+             NSMutableString* output = [NSMutableString stringWithCapacity:CC_MD5_DIGEST_LENGTH * 2];
+             for(int i = 0; i < CC_MD5_DIGEST_LENGTH; i++)
+                 [output appendFormat:@"%02x", digest[i]];
+             fileblock.blockData = readData;
+             fileblock.blockMD5 = output;
+             [self.delegate getBlockMD5:fileblock start:start end:end bid:bid uploadUrl:uploadUrl fileData:fileData];
+             free(buffer);
+         } failureBlock:^(NSError *error){}];
+    }
 }
 
 @end

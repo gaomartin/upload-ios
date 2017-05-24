@@ -44,6 +44,8 @@
 		4BE28DAA1DED7BC300EF0F90 /* BZUserModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 4BE28DA81DED7BC300EF0F90 /* BZUserModel.h */; };
 		4BE28DAB1DED7BC300EF0F90 /* BZUserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BE28DA91DED7BC300EF0F90 /* BZUserModel.m */; };
 		4BEB6C581DEED5C700D4994E /* PPUploadFileData_Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 4BEB6C571DEED5C700D4994E /* PPUploadFileData_Internal.h */; };
+		4BF943151E9DC3FB00A27B45 /* PPVideoInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 4BF943131E9DC3FB00A27B45 /* PPVideoInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4BF943161E9DC3FB00A27B45 /* PPVideoInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BF943141E9DC3FB00A27B45 /* PPVideoInfo.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -86,6 +88,8 @@
 		4BE28DA81DED7BC300EF0F90 /* BZUserModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BZUserModel.h; sourceTree = "<group>"; };
 		4BE28DA91DED7BC300EF0F90 /* BZUserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BZUserModel.m; sourceTree = "<group>"; };
 		4BEB6C571DEED5C700D4994E /* PPUploadFileData_Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPUploadFileData_Internal.h; sourceTree = "<group>"; };
+		4BF943131E9DC3FB00A27B45 /* PPVideoInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPVideoInfo.h; sourceTree = "<group>"; };
+		4BF943141E9DC3FB00A27B45 /* PPVideoInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPVideoInfo.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -188,6 +192,8 @@
 				4BEB6C571DEED5C700D4994E /* PPUploadFileData_Internal.h */,
 				4B4135701D5C0D7000E7154E /* PPUploadFileData.h */,
 				4B4135711D5C0D7000E7154E /* PPUploadFileData.m */,
+				4BF943131E9DC3FB00A27B45 /* PPVideoInfo.h */,
+				4BF943141E9DC3FB00A27B45 /* PPVideoInfo.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -201,6 +207,7 @@
 			files = (
 				4B4135971D5C0D8700E7154E /* PPUploadFileData.h in Headers */,
 				4B4135981D5C0D8700E7154E /* PPTVFileUpload.h in Headers */,
+				4BF943151E9DC3FB00A27B45 /* PPVideoInfo.h in Headers */,
 				4B4135861D5C0D8700E7154E /* NSArray+ObjectAtIndexWithBoundsCheck.h in Headers */,
 				4B4135871D5C0D8700E7154E /* NSString+Hashes.h in Headers */,
 				4B4136071D5C179800E7154E /* PrefixHeader.pch in Headers */,
@@ -255,6 +262,8 @@
 				TargetAttributes = {
 					4B4135431D5C0C8400E7154E = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = 3U62SP5YP3;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -303,6 +312,7 @@
 				4B4135841D5C0D7000E7154E /* PPTVFileUpload.m in Sources */,
 				4B41357F1D5C0D7000E7154E /* PPUploadHashTool.m in Sources */,
 				4B4135761D5C0D7000E7154E /* NSString+Hashes.m in Sources */,
+				4BF943161E9DC3FB00A27B45 /* PPVideoInfo.m in Sources */,
 				4B41357E1D5C0D7000E7154E /* PPFileUploadManager.m in Sources */,
 				4B4135801D5C0D7000E7154E /* PPUploadRequest.m in Sources */,
 				4B4135771D5C0D7000E7154E /* NSString+PPURL.m in Sources */,
@@ -396,8 +406,10 @@
 		4B41354B1D5C0C8400E7154E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEAD_CODE_STRIPPING = NO;
+				DEVELOPMENT_TEAM = 3U62SP5YP3;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(PROJECT_DIR)/PPTVFileUpload/PrefixHeader.pch";
 				INFOPLIST_FILE = PPTVFileUpload/Info.plist;
@@ -418,8 +430,10 @@
 		4B41354C1D5C0C8400E7154E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEAD_CODE_STRIPPING = NO;
+				DEVELOPMENT_TEAM = 3U62SP5YP3;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(PROJECT_DIR)/PPTVFileUpload/PrefixHeader.pch";
 				INFOPLIST_FILE = PPTVFileUpload/Info.plist;

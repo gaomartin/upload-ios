@@ -1,9 +1,13 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="BYZ-38-t0r">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -15,7 +19,7 @@
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W4e-Cq-dHe">
@@ -23,13 +27,13 @@
                                 <constraints>
                                     <constraint firstAttribute="width" constant="140" id="qUs-jo-NVD"/>
                                 </constraints>
-                                <state key="normal" title="选择本地视频"/>
+                                <state key="normal" title="选择相册视频"/>
                                 <connections>
                                     <action selector="pickVideoFromAlbum:" destination="BYZ-38-t0r" eventType="touchUpInside" id="jR0-Tu-ARy"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tGx-xK-yDl">
-                                <rect key="frame" x="160" y="20" width="140" height="30"/>
+                                <rect key="frame" x="160" y="20" width="195" height="30"/>
                                 <state key="normal" title="拍摄视频"/>
                                 <connections>
                                     <action selector="openCamera" destination="BYZ-38-t0r" eventType="touchUpInside" id="5Rt-4U-lAS"/>
@@ -42,41 +46,31 @@
                                     <constraint firstAttribute="height" constant="30" id="s89-R7-fTN"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VgX-hE-gCw">
-                                <rect key="frame" x="20" y="220" width="280" height="30"/>
-                                <state key="normal" title="上传"/>
-                                <connections>
-                                    <action selector="startUploadVideo:" destination="BYZ-38-t0r" eventType="touchUpInside" id="oWl-73-8PJ"/>
-                                </connections>
-                            </button>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ioF-IO-Sef">
-                                <rect key="frame" x="0.0" y="260" width="320" height="308"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <connections>
-                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="U8i-kL-hYP"/>
-                                    <outlet property="delegate" destination="BYZ-38-t0r" id="tw7-ue-SvW"/>
-                                </connections>
-                            </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wju-Og-mgq">
+                                <rect key="frame" x="100" y="50" width="255" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="视频信息设置 (不填就是使用默认值)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pKX-Hh-UZm">
-                                <rect key="frame" x="20" y="80" width="280" height="30"/>
+                                <rect key="frame" x="20" y="80" width="335" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="SaF-Oa-QZr"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="视频标题:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P06-mk-2TM">
                                 <rect key="frame" x="20" y="110" width="70" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ndD-13-axn">
-                                <rect key="frame" x="100" y="110" width="200" height="30"/>
+                                <rect key="frame" x="100" y="110" width="255" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
@@ -86,24 +80,41 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="视频详情:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yak-fG-L5O">
                                 <rect key="frame" x="20" y="142" width="70" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9Ha-oW-FMn">
-                                <rect key="frame" x="100" y="142" width="200" height="30"/>
+                                <rect key="frame" x="100" y="142" width="255" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="wQC-Sz-fwH"/>
                                 </connections>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wju-Og-mgq">
-                                <rect key="frame" x="100" y="50" width="200" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1f0-ru-5Ks">
+                                <rect key="frame" x="20" y="188" width="335" height="30"/>
+                                <state key="normal" title="选择app缓存视频"/>
+                                <connections>
+                                    <action selector="selectLocalVideo" destination="BYZ-38-t0r" eventType="touchUpInside" id="WTi-KY-FBd"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VgX-hE-gCw">
+                                <rect key="frame" x="20" y="220" width="335" height="30"/>
+                                <state key="normal" title="上传"/>
+                                <connections>
+                                    <action selector="startUploadVideo:" destination="BYZ-38-t0r" eventType="touchUpInside" id="oWl-73-8PJ"/>
+                                </connections>
+                            </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ioF-IO-Sef">
+                                <rect key="frame" x="0.0" y="260" width="375" height="407"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="U8i-kL-hYP"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="tw7-ue-SvW"/>
+                                </connections>
+                            </tableView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="s0O-gz-X92" firstAttribute="trailing" secondItem="P06-mk-2TM" secondAttribute="trailing" id="05E-PR-Ck4"/>
                             <constraint firstItem="ioF-IO-Sef" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="16j-uC-qMY"/>
@@ -113,6 +124,7 @@
                             <constraint firstItem="yak-fG-L5O" firstAttribute="bottom" secondItem="9Ha-oW-FMn" secondAttribute="bottom" id="44Y-cZ-aOI"/>
                             <constraint firstItem="s0O-gz-X92" firstAttribute="leading" secondItem="pKX-Hh-UZm" secondAttribute="leading" id="9ll-Sg-bJF"/>
                             <constraint firstItem="P06-mk-2TM" firstAttribute="trailing" secondItem="yak-fG-L5O" secondAttribute="trailing" id="C7T-RR-LUj"/>
+                            <constraint firstItem="1f0-ru-5Ks" firstAttribute="trailing" secondItem="VgX-hE-gCw" secondAttribute="trailing" id="DVD-R2-MY9"/>
                             <constraint firstItem="tGx-xK-yDl" firstAttribute="leading" secondItem="W4e-Cq-dHe" secondAttribute="trailing" id="Dn4-oF-gBM"/>
                             <constraint firstItem="yak-fG-L5O" firstAttribute="top" secondItem="9Ha-oW-FMn" secondAttribute="top" id="Kco-aW-Cqy"/>
                             <constraint firstItem="Wju-Og-mgq" firstAttribute="leading" secondItem="s0O-gz-X92" secondAttribute="trailing" constant="10" id="Lie-dh-phY"/>
@@ -138,7 +150,9 @@
                             <constraint firstItem="ioF-IO-Sef" firstAttribute="top" secondItem="VgX-hE-gCw" secondAttribute="bottom" constant="10" id="noB-Y9-dUI"/>
                             <constraint firstItem="s0O-gz-X92" firstAttribute="top" secondItem="Wju-Og-mgq" secondAttribute="top" id="nrr-mg-asV"/>
                             <constraint firstItem="P06-mk-2TM" firstAttribute="top" secondItem="ndD-13-axn" secondAttribute="top" id="pqf-tw-Gro"/>
+                            <constraint firstItem="1f0-ru-5Ks" firstAttribute="leading" secondItem="VgX-hE-gCw" secondAttribute="leading" id="sRi-XF-sag"/>
                             <constraint firstItem="ioF-IO-Sef" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="uCH-en-Hf3"/>
+                            <constraint firstItem="VgX-hE-gCw" firstAttribute="top" secondItem="1f0-ru-5Ks" secondAttribute="bottom" constant="2" id="woq-54-Nth"/>
                             <constraint firstItem="pKX-Hh-UZm" firstAttribute="leading" secondItem="P06-mk-2TM" secondAttribute="leading" id="xS9-aA-qUq"/>
                         </constraints>
                     </view>
@@ -154,4 +168,9 @@
             <point key="canvasLocation" x="174" y="429"/>
         </scene>
     </scenes>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4_7.fullscreen"/>
+    </simulatedMetricsContainer>
 </document>

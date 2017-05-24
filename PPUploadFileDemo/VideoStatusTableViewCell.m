@@ -96,37 +96,31 @@
         //未开始
         if (!fileData.isStartUploaded) {
             self.uploadStateLabel.text = @"未开始";
-            NSLog(@"uploadingFile status = %@",self.uploadStateLabel.text);
         }else{
             switch (fileData.status) {
                 case UPStatusNormal:
+                    self.uploadStateLabel.text = @"未完成...";
                     self.pauseOrContinueButton.hidden = NO;
                     [self.pauseOrContinueButton setImage:[UIImage imageNamed:@"cloudplay"] forState:UIControlStateNormal];
-                    NSLog(@"uploadingFile status = %@",self.uploadStateLabel.text);
                     break;
                 case UPStatusWait:
                 case UPStatusUploading:
                     self.uploadStateLabel.text = @"正在上传...";
-                    NSLog(@"uploadingFile status = %@",self.uploadStateLabel.text);
                     self.pauseOrContinueButton.hidden = NO;
                     [self.pauseOrContinueButton setImage:[UIImage imageNamed:@"cloudpause"] forState:UIControlStateNormal];
                     break;
                 case UPStatusError:
                     self.uploadStateLabel.text = @"上传失败";
                     self.reUploadButton.hidden = NO;
-                    NSLog(@"uploadingFile status = %@",self.uploadStateLabel.text);
                     break;
                 case UPStatusPause:
                     self.uploadStateLabel.text = @"暂停中";
                     self.pauseOrContinueButton.hidden = NO;
                     [self.pauseOrContinueButton setImage:[UIImage imageNamed:@"cloudplay"] forState:UIControlStateNormal];
-                    NSLog(@"uploadingFile status = %@",self.uploadStateLabel.text);
                     break;
                 case UPStatusUploadFinish:
                     self.uploadStateLabel.text = @"上传完成";
                     self.completeButton.hidden = NO;
-                    //self.cancelButton.hidden = YES;
-                    NSLog(@"uploadingFile status = %@",self.uploadStateLabel.text);
                     break;
                     
                 default:
@@ -134,6 +128,8 @@
             }
         }
     }
+    
+    NSLog(@"createDate=%@, uploadingFile status = %@", fileData.createDate,self.uploadStateLabel.text);
 }
 
 - (NSString *)stringFromDate6:(NSDate *)date

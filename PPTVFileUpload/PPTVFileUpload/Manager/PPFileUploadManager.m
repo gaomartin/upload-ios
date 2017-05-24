@@ -105,7 +105,7 @@ static dispatch_queue_t dispatch_get_uploading_queue(){
             request.delegate = self;
             [self.uploadingDelegateMap setObject:request forKey:[uploadFile fileIdentifier]];
             [self.uploadingQueue addObject:uploadFile];
-            NSLog(@"enqueueUploadingFile [%@]",[uploadFile fileIdentifier]);
+            NSLog(@"enqueueUploadingFile [%@]",[uploadFile fileIdentifierForLog]);
         }
         
         switch (uploadFile.progress) {
@@ -168,7 +168,7 @@ static dispatch_queue_t dispatch_get_uploading_queue(){
             request.delegate = nil;
             [self.uploadingQueue removeObject:uploadFile];
             [self.uploadingDelegateMap removeObjectForKey:[uploadFile fileIdentifier]];
-            NSLog(@"dequeueUploadingFile [%@]",[uploadFile fileIdentifier]);
+            NSLog(@"dequeueUploadingFile [%@]",[uploadFile fileIdentifierForLog]);
             return YES;
         }
     }
@@ -178,25 +178,16 @@ static dispatch_queue_t dispatch_get_uploading_queue(){
 - (BOOL)addNewUploadFile:(PPUploadFileData *)uploadFile
 {
     if (uploadFile) {
-        NSLog(@"add new upload file[%@]",[uploadFile fileIdentifier]);
+        NSLog(@"add new upload file [%@]",[uploadFile fileIdentifierForLog]);
+        //允许重复添加文件
+        [self.allUploadFiles addObject:uploadFile];
         
-        BOOL isNeedAdd = YES;
-        for (PPUploadFileData *fileData in self.allUploadFiles) {
-            NSLog(@"fileData =%@, uploadFile=%@",[fileData fileIdentifier], [uploadFile fileIdentifier]);
-            if ([[fileData fileIdentifier] isEqualToString:[uploadFile fileIdentifier]]) {
-                isNeedAdd = NO;
-            }
-        }
+        [self enqueueUploadingFile:uploadFile];
         
-        if (isNeedAdd) {
-            [self.allUploadFiles addObject:uploadFile];
-            
-            [self enqueueUploadingFile:uploadFile];
-            
-            [self updateToDBWith:uploadFile];
-            
-            return YES;
-        }
+        [self updateToDBWith:uploadFile];
+        
+        return YES;
+        
     }
     return NO;
 }
@@ -206,7 +197,6 @@ static dispatch_queue_t dispatch_get_uploading_queue(){
     if (uploadFile) {
         for (PPUploadFileData *file in self.allUploadFiles) {
             if ([[file fileIdentifier] isEqualToString:[uploadFile fileIdentifier]]) {
-                NSLog(@"old file = %@ , new File = %@",file,uploadFile);
                 file.fileName = uploadFile.fileName;
                 file.fileSize = uploadFile.fileSize;
                 file.introduce = uploadFile.introduce;
@@ -224,7 +214,7 @@ static dispatch_queue_t dispatch_get_uploading_queue(){
         [self updateToDBWith:uploadFile];
     }
     
-    NSLog(@"removeUploadFile");
+    NSLog(@"removeUploadFile:%@",uploadFile.fileIdentifierForLog);
     dispatch_async(dispatch_get_main_queue(), ^{
         if ([self.delegate respondsToSelector:@selector(uploadingFileStatusChange)]) {
             [self.delegate uploadingFileStatusChange];
@@ -297,7 +287,7 @@ static dispatch_queue_t dispatch_get_uploading_queue(){
             [self dequeueUploadingFile:uploadFile];
         }
     }
-    NSLog(@"changeUploadingFile toStatus: %zd", status);
+    NSLog(@"changeUploadingFile %@ toStatus: %zd", uploadFile.fileIdentifierForLog,status);
     [self postNotification:FileUploadingCheckNotification];
 }
 
@@ -320,7 +310,8 @@ static dispatch_queue_t dispatch_get_uploading_queue(){
     dispatch_async(dispatch_get_uploading_queue(), ^{
         for (PPUploadFileData *uploadFile in self.allUploadFiles) {
             if (uploadFile) {
-                NSLog(@"check uploading queue status methods, upload file:[%@]",[uploadFile fileIdentifier]);
+                NSLog(@"---------------------------------------------");
+                NSLog(@"upload file:[%@]",[uploadFile fileIdentifierForLog]);
                 NSLog(@"upload file status : %zd",[uploadFile status]);
                 if (uploadFile.status == UPStatusWait) {//把所有处于等待状态的文件入队列
                     if (self.uploadingQueue.count <= self.concurrentTaskNumber) {
@@ -360,7 +351,7 @@ static dispatch_queue_t dispatch_get_uploading_queue(){
         [request submitMD5WithData:fileData];
     }
     
-    NSLog(@"createFileComplete fid");
+    NSLog(@"%@ createFileComplete fid",fileData.fileIdentifierForLog);
     dispatch_async(dispatch_get_main_queue(), ^{
         [[NSNotificationCenter defaultCenter] postNotificationName:FileUploadingCheckNotification object:fileData];
     });
@@ -374,7 +365,7 @@ static dispatch_queue_t dispatch_get_uploading_queue(){
          [request uploadingFileWithData:fileData];
     }
     
-    NSLog(@"submitMD5Complete");
+    NSLog(@"%@ submitMD5Complete", fileData.fileIdentifierForLog);
     dispatch_async(dispatch_get_main_queue(), ^{
         [[NSNotificationCenter defaultCenter] postNotificationName:FileUploadingCheckNotification object:fileData];
     });
@@ -391,7 +382,7 @@ static dispatch_queue_t dispatch_get_uploading_queue(){
         }
     }
     
-    NSLog(@"uploadingFileComplete fileData.status = %zd", fileData.status);
+    NSLog(@"%@ uploadingFileComplete fileData.status = %zd", fileData.fileIdentifierForLog, fileData.status);
     dispatch_async(dispatch_get_main_queue(), ^{
         [[NSNotificationCenter defaultCenter] postNotificationName:FileUploadingCheckNotification object:fileData];
     });

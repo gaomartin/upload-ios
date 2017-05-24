@@ -15,6 +15,11 @@
     return [NSString stringWithFormat:@"%lld_%@",self.fileSize,self.assetURL];
 }
 
+- (NSString *)fileIdentifierForLog
+{
+    return [NSString stringWithFormat:@"file(%@_%lld)",self.fileName, self.fileSize];
+}
+
 - (id)initWithCoder:(NSCoder *)decoder
 {
     self = [self init];
@@ -30,6 +35,7 @@
         self.categoryName       = [decoder decodeObjectForKey:@"categoryName"];
         self.fileName           = [decoder decodeObjectForKey:@"fileName"];
         self.introduce          = [decoder decodeObjectForKey:@"introduce"];
+        self.errorMsg           = [decoder decodeObjectForKey:@"errorMsg"];
         self.uploadPath         = [decoder decodeObjectForKey:@"uploadPath"];
         
         self.md5                = [decoder decodeObjectForKey:@"md5"];
@@ -48,6 +54,7 @@
         self.progress           = [decoder decodeIntegerForKey:@"progress"];
         self.status             = [decoder decodeIntegerForKey:@"status"];
         self.fileIdentifier     = [decoder decodeObjectForKey:@"fileIdentifier"];
+        self.fileIdentifierForLog     = [decoder decodeObjectForKey:@"fileIdentifierForLog"];
     }
     
     return  self;
@@ -64,6 +71,7 @@
     [encoder encodeObject:self.categoryName forKey:@"categoryName"];
     [encoder encodeObject:self.fileName forKey:@"fileName"];
     [encoder encodeObject:self.introduce forKey:@"introduce"];
+    [encoder encodeObject:self.errorMsg forKey:@"errorMsg"];
     [encoder encodeObject:self.uploadPath forKey:@"uploadPath"];
     
     [encoder encodeObject:self.md5 forKey:@"md5"];
@@ -82,6 +90,7 @@
     [encoder encodeInteger:self.progress forKey:@"progress"];
     [encoder encodeInteger:self.status forKey:@"status"];
     [encoder encodeObject:self.fileIdentifier forKey:@"fileIdentifier"];
+    [encoder encodeObject:self.fileIdentifierForLog forKey:@"fileIdentifierForLog"];
 }
 
 @end

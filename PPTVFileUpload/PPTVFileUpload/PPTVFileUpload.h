@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "PPUploadFileData.h"
+#import "PPVideoInfo.h"
 
 /*!
  *  @brief 文件上传回调
@@ -21,12 +22,14 @@
  *  @discussion 可以不用处理该回调
  */
 - (void)getVideoInfoSuccess;
+
 /*!
  *  @brief 检索本地视频失败
  *  @param message 失败原因
- *  @discussion 无法检索到相册中的视频, 无法上传
+ *  @discussion 无法检索到视频, 无法上传
  */
 - (void)getVideoInfoFailed:(NSString *)message;
+
 /*!
  *  @brief 文件上传状态的变化回调
  *  @discussion 回调中, 刷新上传文件的状态
@@ -52,18 +55,15 @@
 /*!
  *  @brief 初始化
  *  @param domainName 域名
+ *  @param cookie HTTPHeader
  */
-- (instancetype)initWithDomainName:(NSString *)domainName;
+- (instancetype)initWithDomainName:(NSString *)domainName andCookie:(NSString *)cookie;
 
 /*!
  *  @brief 开始上传文件
- *  @param path 本地相册视频文件路径, 必传
- *  @param title 视频的title,必传
- *  @param detail 视频的详情介绍,可选
+ *  @param info PPVideoInfo对象
  */
-- (void)startUploadFileWithPath:(NSString *)path
-                          title:(NSString *)title
-                         detail:(NSString *)detail;
+- (void)startUploadFileWithVideoInfo:(PPVideoInfo *)info;
 
 /*!
  *  @brief 改变文件的上传状态

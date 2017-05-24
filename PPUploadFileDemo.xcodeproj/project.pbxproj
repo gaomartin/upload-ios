@@ -16,6 +16,7 @@
 		4BC758591D48BCAB00E4C5FB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4BA8AEE31D48B4AD00581437 /* LaunchScreen.storyboard */; };
 		4BC7585A1D48BCAB00E4C5FB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4BA8AEE51D48B4AD00581437 /* Main.storyboard */; };
 		4BC7585B1D48BCAB00E4C5FB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4BA8AECE1D48A92600581437 /* Assets.xcassets */; };
+		4BF9431D1E9DD95300A27B45 /* test.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 4BF9431C1E9DD95300A27B45 /* test.mp4 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +45,7 @@
 		4BA8AED41D48A92600581437 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		4BA8AEE41D48B4AD00581437 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4BA8AEE61D48B4AD00581437 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Main.storyboard; sourceTree = "<group>"; };
+		4BF9431C1E9DD95300A27B45 /* test.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = test.mp4; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +106,7 @@
 				4BA8AEE21D48B4AD00581437 /* Base.lproj */,
 				4BA8AECE1D48A92600581437 /* Assets.xcassets */,
 				4BA8AED31D48A92600581437 /* Info.plist */,
+				4BF9431C1E9DD95300A27B45 /* test.mp4 */,
 				4BA8AED41D48A92600581437 /* main.m */,
 				4B89E09F1D6EC63B00FA373F /* PPTVFileUpload.framework */,
 			);
@@ -196,6 +199,7 @@
 				4BC758591D48BCAB00E4C5FB /* LaunchScreen.storyboard in Resources */,
 				4BC7585A1D48BCAB00E4C5FB /* Main.storyboard in Resources */,
 				4BC7585B1D48BCAB00E4C5FB /* Assets.xcassets in Resources */,
+				4BF9431D1E9DD95300A27B45 /* test.mp4 in Resources */,
 				4B8FE8C51D52E18A00D3A986 /* VideoStatusTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -11,6 +11,7 @@
 @interface BZUserModel : NSObject
 
 @property (nonatomic, strong) NSString *domainName;
+@property (nonatomic, strong) NSString *cookie;
 
 + (BZUserModel *)sharedBZUserModel;
 

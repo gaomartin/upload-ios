@@ -56,6 +56,8 @@ typedef NS_ENUM(NSUInteger, UploadStatus)
 @property (nonatomic, copy) NSString * fileName;
 //介绍
 @property (nonatomic, copy) NSString * introduce;
+//失败原因
+@property (nonatomic, copy) NSString *errorMsg;
 //已上传大小
 @property (nonatomic) long long finished;
 //当前进度

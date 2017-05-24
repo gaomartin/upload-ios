@@ -26,7 +26,7 @@
 @property (nonatomic, weak) IBOutlet UITableView *uploadTableView;//table视图
 @property (nonatomic, strong) NSMutableArray *uploadList;//上传列表
 @property (nonatomic, assign) long long fileSize;
-
+@property (nonatomic, assign) BOOL isLocalCacheVideo;
 
 @end
 
@@ -36,7 +36,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-    self.fileUpload = [[PPTVFileUpload alloc] initWithDomainName:@"http://115.231.44.26:8081/uploadtest/uptoken"];
+    self.fileUpload = [[PPTVFileUpload alloc] initWithDomainName:@"http://115.231.44.26:8081/uploadtest/uptoken" andCookie:@""];
     self.fileUpload.uploadDelegate = self;
     
     [self uploadFileStatusChange];
@@ -81,6 +81,14 @@
     [self  presentViewController:imagePicker animated:YES completion:nil];
 }
 
+- (IBAction)selectLocalVideo
+{
+    self.isLocalCacheVideo = YES;
+    self.filePath = [[NSBundle mainBundle] pathForResource:@"test" ofType:@"mp4"];
+    self.videoPathLabel.text = self.filePath;
+    [self startUploadVideo:nil];
+}
+
 #pragma mark - UIImagePickerControllerDelegate
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
@@ -119,7 +127,7 @@
                                     }];
     }
     NSLog(@"picker.videoQuality=%zd",picker.videoQuality);
-   
+    self.isLocalCacheVideo = NO;
     [self dismissViewControllerAnimated:YES completion:^{}];
 }
 
@@ -138,7 +146,7 @@
     
     //ios选择本地视频后, 会自动压缩
     //测试环境的swift配置有问题， 小于1M的无法提交成功
-    if (self.fileSize < 1024*1024 ) {
+    if (self.fileSize < 1024*1024 && !self.isLocalCacheVideo) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Tips" message:@"测试环境的swift配置有问题， 小于1M的无法提交成功" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
         [alert show];
         return;
@@ -149,7 +157,14 @@
         title = self.fileTitle.text;
     }
     
-    [self.fileUpload startUploadFileWithPath:self.filePath title:title detail:self.fileDetail.text];
+    
+    PPVideoInfo *info = [[PPVideoInfo alloc] init];
+    info.path = self.filePath;
+    info.title = title;
+    info.detail = self.fileDetail.text;
+    info.isLocalCacheVideo = self.isLocalCacheVideo;
+    
+    [self.fileUpload startUploadFileWithVideoInfo:info];
     
     self.fileTitle.text = @"";
     self.fileDetail.text = @"";
@@ -181,7 +196,7 @@
 {
     NSLog(@"uploadFileStatusChange");
     NSMutableArray *array = [NSMutableArray arrayWithArray: self.fileUpload.allUploadFiles];
-    self.uploadList = [NSMutableArray arrayWithArray:[[array reverseObjectEnumerator] allObjects]];
+    self.uploadList = [NSMutableArray arrayWithArray:[[array reverseObjectEnumerator] allObjects]];//reverse数组位置, 为了tableview 上面显示最新的数据
     [self.uploadTableView reloadData];
 }
 
