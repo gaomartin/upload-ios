@@ -19,6 +19,7 @@
 @property (nonatomic, strong) PPTVFileUpload *fileUpload;
 @property (nonatomic, strong) NSString *filePath;
 @property (nonatomic, strong) IBOutlet UILabel *videoPathLabel;
+@property (nonatomic, strong) IBOutlet UILabel *videoSizeLabel;
 
 @property (nonatomic, weak) IBOutlet UITextField *fileTitle;
 @property (nonatomic, weak) IBOutlet UITextField *fileDetail;
@@ -107,13 +108,14 @@
             self.fileSize =  rep.size;
             
             NSLog(@"self.fileSize=%lld, %.2fM", self.fileSize, self.fileSize / (1024.0*1024.0));
+            self.videoSizeLabel.text = [NSString stringWithFormat:@"%.2f M", self.fileSize / (1024.0*1024.0)];
         } failureBlock:nil];
     } else {//拍摄视频
         url = [info objectForKey:UIImagePickerControllerMediaURL];
         NSData *fileData = [NSData dataWithContentsOfFile:[url path]];
         self.fileSize = [fileData length];
         NSLog(@"self.fileSize=%lld, %.2fM", self.fileSize, self.fileSize / (1024.0*1024.0));
-        
+        self.videoSizeLabel.text = [NSString stringWithFormat:@"%.2f M", self.fileSize / (1024.0*1024.0)];
         ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
         [library writeVideoAtPathToSavedPhotosAlbum:url
                                     completionBlock:^(NSURL *assetURL, NSError *error) {
@@ -126,8 +128,10 @@
                                         }
                                     }];
     }
+    
     NSLog(@"picker.videoQuality=%zd",picker.videoQuality);
     self.isLocalCacheVideo = NO;
+    
     [self dismissViewControllerAnimated:YES completion:^{}];
 }
 
@@ -152,7 +156,7 @@
         return;
     }
     
-    NSString *title = [NSString stringWithFormat:@"iosUploadTest%zd",self.fileSize];//主要是为了防止重名, 不好测试
+    NSString *title = [NSString stringWithFormat:@"iosUploadTest%zd",self.fileSize];//主要是为了防止重名, 方便测试
     if ([self.fileTitle.text length]) {
         title = self.fileTitle.text;
     }

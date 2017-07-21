@@ -27,7 +27,6 @@
     if(self)
     {
         self.assetURL           = [decoder decodeObjectForKey:@"assetURL"];
-        self.fileImage          = [decoder decodeObjectForKey:@"fileImage"];
         self.file_status        = [decoder decodeIntegerForKey:@"file_status"];
         self.ppfeature          = [decoder decodeObjectForKey:@"ppfeature"];
         self.channelWebId       = [decoder decodeObjectForKey:@"channelWebId"];
@@ -50,11 +49,13 @@
         self.fid                = [decoder decodeObjectForKey:@"fid"];
         self.fileSize           = [decoder decodeDoubleForKey:@"fileSize"];
         self.token              = [decoder decodeObjectForKey:@"token"];
-        self.finished           = [decoder decodeDoubleForKey:@"finished"];
+        self.finishedSize       = [decoder decodeDoubleForKey:@"finishedSize"];
         self.progress           = [decoder decodeIntegerForKey:@"progress"];
         self.status             = [decoder decodeIntegerForKey:@"status"];
         self.fileIdentifier     = [decoder decodeObjectForKey:@"fileIdentifier"];
         self.fileIdentifierForLog     = [decoder decodeObjectForKey:@"fileIdentifierForLog"];
+        self.user_id            = [decoder decodeObjectForKey:@"user_id"];
+        self.errorCode          = [decoder decodeIntegerForKey:@"errorCode"];
     }
     
     return  self;
@@ -63,7 +64,6 @@
 - (void)encodeWithCoder:(NSCoder *)encoder
 {
     [encoder encodeObject:self.assetURL forKey:@"assetURL"];
-    [encoder encodeObject:self.fileImage forKey:@"fileImage"];
     [encoder encodeInteger:self.file_status forKey:@"file_status"];
     [encoder encodeObject:self.ppfeature forKey:@"ppfeature"];
     [encoder encodeObject:self.channelWebId forKey:@"channelWebId"];
@@ -86,11 +86,14 @@
     [encoder encodeObject:self.fid forKey:@"fid"];
     [encoder encodeDouble:self.fileSize forKey:@"fileSize"];
     [encoder encodeObject:self.token forKey:@"token"];
-    [encoder encodeDouble:self.finished forKey:@"finished"];
+    [encoder encodeDouble:self.finishedSize forKey:@"finishedSize"];
     [encoder encodeInteger:self.progress forKey:@"progress"];
     [encoder encodeInteger:self.status forKey:@"status"];
     [encoder encodeObject:self.fileIdentifier forKey:@"fileIdentifier"];
     [encoder encodeObject:self.fileIdentifierForLog forKey:@"fileIdentifierForLog"];
+    
+    [encoder encodeObject:self.user_id forKey:@"user_id"];
+    [encoder encodeInteger:self.errorCode forKey:@"errorCode"];
 }
 
 @end

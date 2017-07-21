@@ -38,8 +38,6 @@ typedef NS_ENUM(NSUInteger, UploadStatus)
 @property (nonatomic, copy) NSDate *createDate;
 //是否已开始上传
 @property (nonatomic, assign) BOOL isStartUploaded;
-//视频缩略图
-@property (nonatomic, copy) UIImage * fileImage;
 //file_status >= 100 表示秒传
 @property (nonatomic, assign) NSInteger file_status;
 //文件大小
@@ -58,8 +56,10 @@ typedef NS_ENUM(NSUInteger, UploadStatus)
 @property (nonatomic, copy) NSString * introduce;
 //失败原因
 @property (nonatomic, copy) NSString *errorMsg;
+//失败code
+@property (nonatomic, assign) NSInteger errorCode;
 //已上传大小
-@property (nonatomic) long long finished;
+@property (nonatomic) long long finishedSize;
 //当前进度
 @property (nonatomic) UploadProgress progress;
 //当前状态

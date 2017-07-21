@@ -41,6 +41,18 @@
 		4B4135971D5C0D8700E7154E /* PPUploadFileData.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B4135701D5C0D7000E7154E /* PPUploadFileData.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4B4135981D5C0D8700E7154E /* PPTVFileUpload.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B4135721D5C0D7000E7154E /* PPTVFileUpload.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4B4136071D5C179800E7154E /* PrefixHeader.pch in Headers */ = {isa = PBXBuildFile; fileRef = 4B4135741D5C0D7000E7154E /* PrefixHeader.pch */; };
+		4B73566D1F010DF000283A6B /* UIDevice-Hardware.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B73566B1F010DF000283A6B /* UIDevice-Hardware.h */; };
+		4B73566E1F010DF000283A6B /* UIDevice-Hardware.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B73566C1F010DF000283A6B /* UIDevice-Hardware.m */; };
+		4B9B4D691EDFF4C800CF5681 /* DataLogClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B9B4D5D1EDFF4C800CF5681 /* DataLogClient.h */; };
+		4B9B4D6A1EDFF4C800CF5681 /* DataLogClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B9B4D5E1EDFF4C800CF5681 /* DataLogClient.m */; };
+		4B9B4D6B1EDFF4C800CF5681 /* PPDAC.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B9B4D5F1EDFF4C800CF5681 /* PPDAC.h */; };
+		4B9B4D6C1EDFF4C800CF5681 /* PPDAC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B9B4D601EDFF4C800CF5681 /* PPDAC.m */; };
+		4B9B4D701EDFF52C00CF5681 /* PPTVReachability.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B9B4D6E1EDFF52C00CF5681 /* PPTVReachability.h */; };
+		4B9B4D711EDFF52C00CF5681 /* PPTVReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B9B4D6F1EDFF52C00CF5681 /* PPTVReachability.m */; };
+		4B9B4D741EDFF53500CF5681 /* PCNetworkStatus.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B9B4D721EDFF53500CF5681 /* PCNetworkStatus.h */; };
+		4B9B4D751EDFF53500CF5681 /* PCNetworkStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B9B4D731EDFF53500CF5681 /* PCNetworkStatus.m */; };
+		4B9B4D971EE0EFD100CF5681 /* NSDataAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B9B4D951EE0EFD100CF5681 /* NSDataAdditions.h */; };
+		4B9B4D981EE0EFD100CF5681 /* NSDataAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B9B4D961EE0EFD100CF5681 /* NSDataAdditions.m */; };
 		4BE28DAA1DED7BC300EF0F90 /* BZUserModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 4BE28DA81DED7BC300EF0F90 /* BZUserModel.h */; };
 		4BE28DAB1DED7BC300EF0F90 /* BZUserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BE28DA91DED7BC300EF0F90 /* BZUserModel.m */; };
 		4BEB6C581DEED5C700D4994E /* PPUploadFileData_Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 4BEB6C571DEED5C700D4994E /* PPUploadFileData_Internal.h */; };
@@ -85,6 +97,18 @@
 		4B4135721D5C0D7000E7154E /* PPTVFileUpload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPTVFileUpload.h; sourceTree = "<group>"; };
 		4B4135731D5C0D7000E7154E /* PPTVFileUpload.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPTVFileUpload.m; sourceTree = "<group>"; };
 		4B4135741D5C0D7000E7154E /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		4B73566B1F010DF000283A6B /* UIDevice-Hardware.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice-Hardware.h"; sourceTree = "<group>"; };
+		4B73566C1F010DF000283A6B /* UIDevice-Hardware.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice-Hardware.m"; sourceTree = "<group>"; };
+		4B9B4D5D1EDFF4C800CF5681 /* DataLogClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataLogClient.h; sourceTree = "<group>"; };
+		4B9B4D5E1EDFF4C800CF5681 /* DataLogClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataLogClient.m; sourceTree = "<group>"; };
+		4B9B4D5F1EDFF4C800CF5681 /* PPDAC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPDAC.h; sourceTree = "<group>"; };
+		4B9B4D601EDFF4C800CF5681 /* PPDAC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPDAC.m; sourceTree = "<group>"; };
+		4B9B4D6E1EDFF52C00CF5681 /* PPTVReachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPTVReachability.h; sourceTree = "<group>"; };
+		4B9B4D6F1EDFF52C00CF5681 /* PPTVReachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPTVReachability.m; sourceTree = "<group>"; };
+		4B9B4D721EDFF53500CF5681 /* PCNetworkStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCNetworkStatus.h; sourceTree = "<group>"; };
+		4B9B4D731EDFF53500CF5681 /* PCNetworkStatus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCNetworkStatus.m; sourceTree = "<group>"; };
+		4B9B4D951EE0EFD100CF5681 /* NSDataAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDataAdditions.h; sourceTree = "<group>"; };
+		4B9B4D961EE0EFD100CF5681 /* NSDataAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDataAdditions.m; sourceTree = "<group>"; };
 		4BE28DA81DED7BC300EF0F90 /* BZUserModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BZUserModel.h; sourceTree = "<group>"; };
 		4BE28DA91DED7BC300EF0F90 /* BZUserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BZUserModel.m; sourceTree = "<group>"; };
 		4BEB6C571DEED5C700D4994E /* PPUploadFileData_Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPUploadFileData_Internal.h; sourceTree = "<group>"; };
@@ -122,6 +146,7 @@
 		4B4135461D5C0C8400E7154E /* PPTVFileUpload */ = {
 			isa = PBXGroup;
 			children = (
+				4B9B4D531EDFF4C800CF5681 /* DAC */,
 				4B41354D1D5C0D7000E7154E /* Category */,
 				4B4135631D5C0D7000E7154E /* Manager */,
 				4B41356B1D5C0D7000E7154E /* Model */,
@@ -136,10 +161,17 @@
 		4B41354D1D5C0D7000E7154E /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				4B73566B1F010DF000283A6B /* UIDevice-Hardware.h */,
+				4B73566C1F010DF000283A6B /* UIDevice-Hardware.m */,
+				4B9B4D721EDFF53500CF5681 /* PCNetworkStatus.h */,
+				4B9B4D731EDFF53500CF5681 /* PCNetworkStatus.m */,
+				4B9B4D6D1EDFF52C00CF5681 /* PPTVReachability */,
 				4B41354E1D5C0D7000E7154E /* NSArray+ObjectAtIndexWithBoundsCheck.h */,
 				4B41354F1D5C0D7000E7154E /* NSArray+ObjectAtIndexWithBoundsCheck.m */,
 				4B4135501D5C0D7000E7154E /* NSString+Hashes.h */,
 				4B4135511D5C0D7000E7154E /* NSString+Hashes.m */,
+				4B9B4D951EE0EFD100CF5681 /* NSDataAdditions.h */,
+				4B9B4D961EE0EFD100CF5681 /* NSDataAdditions.m */,
 				4B4135521D5C0D7000E7154E /* NSString+PPURL.h */,
 				4B4135531D5C0D7000E7154E /* NSString+PPURL.m */,
 				4B4135541D5C0D7000E7154E /* SafeValue */,
@@ -198,6 +230,26 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		4B9B4D531EDFF4C800CF5681 /* DAC */ = {
+			isa = PBXGroup;
+			children = (
+				4B9B4D5D1EDFF4C800CF5681 /* DataLogClient.h */,
+				4B9B4D5E1EDFF4C800CF5681 /* DataLogClient.m */,
+				4B9B4D5F1EDFF4C800CF5681 /* PPDAC.h */,
+				4B9B4D601EDFF4C800CF5681 /* PPDAC.m */,
+			);
+			path = DAC;
+			sourceTree = "<group>";
+		};
+		4B9B4D6D1EDFF52C00CF5681 /* PPTVReachability */ = {
+			isa = PBXGroup;
+			children = (
+				4B9B4D6E1EDFF52C00CF5681 /* PPTVReachability.h */,
+				4B9B4D6F1EDFF52C00CF5681 /* PPTVReachability.m */,
+			);
+			path = PPTVReachability;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -205,8 +257,11 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4B9B4D741EDFF53500CF5681 /* PCNetworkStatus.h in Headers */,
 				4B4135971D5C0D8700E7154E /* PPUploadFileData.h in Headers */,
 				4B4135981D5C0D8700E7154E /* PPTVFileUpload.h in Headers */,
+				4B9B4D701EDFF52C00CF5681 /* PPTVReachability.h in Headers */,
+				4B9B4D6B1EDFF4C800CF5681 /* PPDAC.h in Headers */,
 				4BF943151E9DC3FB00A27B45 /* PPVideoInfo.h in Headers */,
 				4B4135861D5C0D8700E7154E /* NSArray+ObjectAtIndexWithBoundsCheck.h in Headers */,
 				4B4135871D5C0D8700E7154E /* NSString+Hashes.h in Headers */,
@@ -221,11 +276,14 @@
 				4B41358F1D5C0D8700E7154E /* SBJSONCategories.h in Headers */,
 				4B4135901D5C0D8700E7154E /* SynthesizeSingleton.h in Headers */,
 				4B4135911D5C0D8700E7154E /* PPCloudErrorCodeDefine.h in Headers */,
+				4B9B4D691EDFF4C800CF5681 /* DataLogClient.h in Headers */,
 				4BEB6C581DEED5C700D4994E /* PPUploadFileData_Internal.h in Headers */,
 				4BE28DAA1DED7BC300EF0F90 /* BZUserModel.h in Headers */,
 				4B4135921D5C0D8700E7154E /* PPFileUploadManager.h in Headers */,
 				4B4135931D5C0D8700E7154E /* PPUploadHashTool.h in Headers */,
 				4B4135941D5C0D8700E7154E /* PPUploadRequest.h in Headers */,
+				4B9B4D971EE0EFD100CF5681 /* NSDataAdditions.h in Headers */,
+				4B73566D1F010DF000283A6B /* UIDevice-Hardware.h in Headers */,
 				4B4135951D5C0D8700E7154E /* BZRangeInfo.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -300,9 +358,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				4B4135831D5C0D7000E7154E /* PPUploadFileData.m in Sources */,
+				4B9B4D981EE0EFD100CF5681 /* NSDataAdditions.m in Sources */,
+				4B9B4D6A1EDFF4C800CF5681 /* DataLogClient.m in Sources */,
 				4B4135791D5C0D7000E7154E /* NSArray+StringValue.m in Sources */,
 				4B41357B1D5C0D7000E7154E /* NSDictionary+StringValue.m in Sources */,
+				4B9B4D711EDFF52C00CF5681 /* PPTVReachability.m in Sources */,
+				4B73566E1F010DF000283A6B /* UIDevice-Hardware.m in Sources */,
 				4B4135751D5C0D7000E7154E /* NSArray+ObjectAtIndexWithBoundsCheck.m in Sources */,
+				4B9B4D751EDFF53500CF5681 /* PCNetworkStatus.m in Sources */,
 				4BE28DAB1DED7BC300EF0F90 /* BZUserModel.m in Sources */,
 				4B4135811D5C0D7000E7154E /* BZRangeInfo.m in Sources */,
 				4B41357D1D5C0D7000E7154E /* SBJSONCategories.m in Sources */,
@@ -312,6 +375,7 @@
 				4B4135841D5C0D7000E7154E /* PPTVFileUpload.m in Sources */,
 				4B41357F1D5C0D7000E7154E /* PPUploadHashTool.m in Sources */,
 				4B4135761D5C0D7000E7154E /* NSString+Hashes.m in Sources */,
+				4B9B4D6C1EDFF4C800CF5681 /* PPDAC.m in Sources */,
 				4BF943161E9DC3FB00A27B45 /* PPVideoInfo.m in Sources */,
 				4B41357E1D5C0D7000E7154E /* PPFileUploadManager.m in Sources */,
 				4B4135801D5C0D7000E7154E /* PPUploadRequest.m in Sources */,
@@ -422,6 +486,7 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = NO;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "arm64 armv7";
 				WRAPPER_EXTENSION = framework;
 			};
@@ -446,6 +511,7 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = NO;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "arm64 armv7";
 				WRAPPER_EXTENSION = framework;
 			};

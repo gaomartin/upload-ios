@@ -45,4 +45,7 @@
 @property (nonatomic, assign) NSInteger framerate;  //视频帧率
 @property (nonatomic, assign) NSInteger duration;   //视频长度(秒)
 
+//上传日志
+@property (nonatomic, strong) NSString *user_id;
+
 @end

@@ -77,16 +77,16 @@
     self.videoTitleLabel.text = fileData.fileName;
     self.uploadStateLabel.text = @"";
     
-    self.createTimeLabel.text = [NSString stringWithFormat:@"%@创建",[self stringFromDate6: fileData.createDate]];
+    self.createTimeLabel.text = [NSString stringWithFormat:@"%@创建",[self converStringFromDate: fileData.createDate]];
     //设置进度数据
     self.uploadProgressBar.hidden = NO;
     double progress = 0;
     if (fileData.fileSize > 0) {
-        progress = (double)fileData.finished/fileData.fileSize;
+        progress = (double)fileData.finishedSize/fileData.fileSize;
     }
     self.uploadProgressBar.progress = progress;
     
-    NSLog(@"uploadingFile progress = %f",progress);
+    NSLog(@"uploadingFile progress = %.2f%%", progress * 100);
     
     self.reUploadButton.hidden = YES;
     self.pauseOrContinueButton.hidden = YES;
@@ -132,7 +132,7 @@
     NSLog(@"createDate=%@, uploadingFile status = %@", fileData.createDate,self.uploadStateLabel.text);
 }
 
-- (NSString *)stringFromDate6:(NSDate *)date
+- (NSString *)converStringFromDate:(NSDate *)date
 {
     static NSDateFormatter *formatter = nil;
     
@@ -142,6 +142,7 @@
             [formatter setDateFormat:@"yyyy-MM-dd HH:mm"];
         }
     }
+    
     return [formatter stringFromDate:date];
 }
 

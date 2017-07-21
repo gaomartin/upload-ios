@@ -11,6 +11,7 @@
 #import "NSString+Hashes.h"
 #import "BZRangeInfo.h"
 #import "NSString+PPURL.h"
+#import "PPDAC.h"
 
 @interface PPUploadRequest()<PPUploadHashToolDelegate>
 
@@ -52,7 +53,7 @@
     NSLog(@"%@ getPPfeature : %@",fileData.fileIdentifierForLog,PPfeature);
     fileData.ppfeature = PPfeature;
     
-    if(!fileData.pid || !fileData.uploadID)
+    if(!fileData.cid || !fileData.uploadID)
     {
         NSMutableURLRequest* createFileRequest = [self createFileRequestWithData:fileData];//请求fid
         [NSURLConnection sendAsynchronousRequest:createFileRequest queue:self.operationQueue completionHandler:^(NSURLResponse *response, NSData *createFileData, NSError *error)
@@ -64,15 +65,14 @@
              {
                  fileData.status = UPStatusError;
                  fileData.errorMsg = error.description;
-                 [self uploadErrorWithInfo:fileData.errorMsg];
+                 fileData.errorCode = error.code;
+                 [self uploadErrorWithInfo:fileData];
              } else {
                  if (createFileData) {
                      if(dic && [[dic safeNumberForKey:@"err"] integerValue] == 0)
                      {
-                        [self.delegate createFileComplete:fileData];
-                         
                          NSDictionary* resultDic = [dic safeDictionaryForKey:@"data"];
-                         fileData.pid = [[resultDic safeNumberForKey:@"channel_id"] stringValue];
+                         fileData.cid = [[resultDic safeNumberForKey:@"channel_id"] stringValue];
                          fileData.channelWebId = [resultDic safeStringForKey:@"channel_web_id"];
                          fileData.fid = [[resultDic safeNumberForKey:@"fid"] stringValue];
                          fileData.ppfeature = [resultDic safeStringForKey:@"ppfeature"];
@@ -82,26 +82,32 @@
                          fileData.file_status = [[resultDic safeNumberForKey:@"file_status"] integerValue];
                          fileData.token = [resultDic safeStringForKey:@"up_token"];
                          fileData.categoryId = [[resultDic safeNumberForKey:@"category_id"] integerValue];
+                         fileData.user_id = [[resultDic safeNumberForKey:@"user_id"] stringValue];
                          
                          if (fileData.file_status >= 100) {//秒传
-                             fileData.finished = fileData.fileSize;
+                             fileData.finishedSize = fileData.fileSize;
                              fileData.progress = UPProgressComplete;
                              fileData.status = UPStatusUploadFinish;
                              [self.delegate uploadingFileComplete:fileData];
                              
                              return;
                          }
+                         
+                         [self.delegate createFileComplete:fileData];
+                         
                      } else {
                          fileData.status = UPStatusError;
-                         fileData.errorMsg = [NSString stringWithFormat:@"请求fid失败, error=%@",[dic safeNumberForKey:@"err"]];
+                         fileData.errorMsg = @"请求fid失败";
+                         fileData.errorCode = [[dic safeNumberForKey:@"err"] integerValue];
                          fileData.progress = UPProgressWaiting;
-                         [self uploadErrorWithInfo:fileData.errorMsg];
+                         [self uploadErrorWithInfo:fileData];
                      }
                  } else {
                      fileData.status = UPStatusError;
                      fileData.errorMsg = @"请求fid失败, data返回为空";
+                     fileData.errorCode = error.code;
                      fileData.progress = UPProgressWaiting;
-                     [self uploadErrorWithInfo:fileData.errorMsg];
+                     [self uploadErrorWithInfo:fileData];
                  }
              }
          }];
@@ -141,7 +147,8 @@
          {
              fileData.status = UPStatusError;
              fileData.errorMsg = error.description;
-             [self uploadErrorWithInfo:fileData.errorMsg];
+             fileData.errorCode = error.code;
+             [self uploadErrorWithInfo:fileData];
          } else {
              NSDictionary *dic = [MD5Data PPJSONValue]; //[NSJSONSerialization JSONObjectWithData:MD5Data options:NSJSONReadingMutableLeaves error:&error];
              NSLog(@"%@ getMD5 dic : %@",fileData.fileIdentifierForLog, dic);
@@ -152,8 +159,9 @@
                  [self.delegate submitMD5Complete:fileData];
              } else {
                  fileData.status = UPStatusError;
-                 fileData.errorMsg = [NSString stringWithFormat:@"请求md5失败, error=%@",[dic safeNumberForKey:@"err"]];
-                 [self uploadErrorWithInfo:fileData.errorMsg];
+                 fileData.errorMsg = @"请求md5失败";
+                 fileData.errorCode = [[dic safeNumberForKey:@"err"] integerValue];
+                 [self uploadErrorWithInfo:fileData];
              }
          }
      }];
@@ -177,8 +185,9 @@
          {
              fileData.status = UPStatusError;
              fileData.errorMsg = error.description;
+             fileData.errorCode = error.code;
              fileData.progress = UPProgressWaiting;
-             [self uploadErrorWithInfo:fileData.errorMsg];
+             [self uploadErrorWithInfo:fileData];
          } else {
              if (dic && [[dic safeNumberForKey:@"err"] integerValue] == 0)
              {
@@ -193,7 +202,7 @@
                   */
                  if (status >= 100)
                  {
-                     fileData.finished = fileData.fileSize;
+                     fileData.finishedSize = fileData.fileSize;
                      fileData.progress = UPProgressComplete;
                      fileData.status = UPStatusUploadFinish;
                      [self.delegate uploadingFileComplete:fileData];
@@ -224,9 +233,10 @@
                  }
              } else {
                  fileData.status = UPStatusError;
-                 fileData.errorMsg = [NSString stringWithFormat:@"请求上传range失败, error=%@",[dic safeNumberForKey:@"err"]];
+                 fileData.errorMsg = @"请求上传ranges失败";
+                 fileData.errorCode = [[dic safeNumberForKey:@"err"] integerValue];
                  fileData.progress = UPProgressWaiting;
-                 [self uploadErrorWithInfo:fileData.errorMsg];
+                 [self uploadErrorWithInfo:fileData];
              }
          }
      }];
@@ -242,17 +252,12 @@
     [urlRequest addValue:fileData.token forHTTPHeaderField:@"Authorization"];
     [urlRequest addValue:fileBlock.blockMD5 forHTTPHeaderField:@"Etag"];
     
-    //NSDate *requsetBeforeDate = [NSDate date];
-    [NSURLConnection sendAsynchronousRequest:urlRequest queue:self.operationQueue completionHandler:^(NSURLResponse *response, NSData *uploadingRangeData, NSError *error)
+    [NSURLConnection sendAsynchronousRequest:urlRequest queue:self.operationQueue completionHandler:^(NSURLResponse *response, NSData *MD5Data, NSError *error)
      {
-         //NSTimeInterval requsetAfterDate=[[NSDate date] timeIntervalSinceDate:requsetBeforeDate];
-         //NSString *requestTime = [NSString stringWithFormat:@"%f",round(requsetAfterDate*1000)];
-         
          NSInteger responseCode = [(NSHTTPURLResponse *)response statusCode];
          NSDictionary* headerDic = [(NSHTTPURLResponse *)response allHeaderFields];
          
-         //TODO: 这里只关心responseCode, 不管返回结果
-         
+         // 这里只关心responseCode, 不管返回结果
          if(responseCode == 201)//表示正确返回响应数据
          {
              NSLog(@"%@ upload file success", fileData.fileIdentifierForLog);
@@ -279,34 +284,40 @@
                                NSDictionary *progressDic = [progressData PPJSONValue];//[NSJSONSerialization JSONObjectWithData:progressData options:NSJSONReadingMutableLeaves error:&error];
                                NSLog(@"%@ progressDic : %@", fileData.fileIdentifierForLog, progressDic);
                                NSDictionary *data = [progressDic safeDictionaryForKey:@"data"];
-                               fileData.finished = [[data safeNumberForKey:@"finished"] longLongValue];
+                               fileData.finishedSize = [[data safeNumberForKey:@"finished"] longLongValue];
                                fileData.progress = UPProgressUploading;
                                fileData.status = UPStatusUploading;
                                [self.delegate uploadingFileComplete:fileData];
                            } else {
                                NSLog(@"%@ get progress error, responseCode=%zd",fileData.fileIdentifierForLog,responseCode);
                                fileData.status = UPStatusError;
-                               fileData.errorMsg = [NSString stringWithFormat:@"请求上传进度失败, statusCode=%zd", responseCode];
+                               fileData.errorMsg = @"请求上传进度失败";
+                               fileData.errorCode = responseCode;
                                fileData.progress = UPProgressWaiting;
-                               [self uploadErrorWithInfo:fileData.errorMsg];
+                               [self uploadErrorWithInfo:fileData];
                            }
                        }];
                   } else {
                       NSLog(@"%@ uploaded reportfailed, responseCode=%zd",fileData.fileIdentifierForLog,responseCode);
                       fileData.status = UPStatusError;
-                      fileData.errorMsg = [NSString stringWithFormat:@"汇报上传数据失败, statusCode=%zd", responseCode];
+                      fileData.errorMsg = @"汇报上传数据失败";
+                      fileData.errorCode = responseCode;
                       fileData.progress = UPProgressWaiting;
-                      [self uploadErrorWithInfo:fileData.errorMsg];
+                      [self uploadErrorWithInfo:fileData];
                   }
               }];
          } else {
              NSLog(@"%@ upload file failed, responseCode=%zd",fileData.fileIdentifierForLog,responseCode);
              fileData.status = UPStatusError;
-             fileData.errorMsg = [NSString stringWithFormat:@"上传文件失败, statusCode=%zd", responseCode];
+             fileData.errorMsg = @"上传文件失败";
+             fileData.errorCode = responseCode;
              fileData.progress = UPProgressWaiting;
-            [self uploadErrorWithInfo:fileData.errorMsg];
+             [self uploadErrorWithInfo:fileData];
          }
+
      }];
+    
+     [[PPFileUploadManager sharedFileUploadManager] startSendLog];
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -403,10 +414,10 @@
 
 #pragma mark  -
 
-- (void)uploadErrorWithInfo:(NSString*)info
+- (void)uploadErrorWithInfo:(PPUploadFileData*)fileData
 {
     dispatch_async(dispatch_get_main_queue(), ^{
-        NSLog(@"error info = %@", info);
+        NSLog(@"error info = %@, errorCode = %zd", fileData.errorMsg, fileData.errorCode);
         [[NSNotificationCenter defaultCenter] postNotificationName:FileUploadingCheckNotification object:nil];
     });
 }

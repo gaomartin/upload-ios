@@ -23,6 +23,9 @@
 
 @property(nonatomic, weak) id<PPUploadFileManagerDelegate> delegate;
 
+@property(nonatomic, strong) NSTimer *logTimer;//日志定时器
+@property(nonatomic, assign) long long obytes;
+
 /*!
  @brief 获取单例对象
  */
@@ -58,5 +61,11 @@
  @param status 文件的状态信息
  */
 - (void)changeUploadingFile:(PPUploadFileData *)uploadFile toStatus:(UploadStatus)status;
+
+- (void)startSendLog;
+
+- (void)stopSendLog;
+
+- (long long)getInterfaceBytes;
 
 @end

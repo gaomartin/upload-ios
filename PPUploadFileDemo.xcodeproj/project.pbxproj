@@ -10,6 +10,7 @@
 		4B89E0A01D6EC63B00FA373F /* PPTVFileUpload.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B89E09F1D6EC63B00FA373F /* PPTVFileUpload.framework */; };
 		4B8FE8C41D52E18A00D3A986 /* VideoStatusTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B8FE8C21D52E18A00D3A986 /* VideoStatusTableViewCell.m */; };
 		4B8FE8C51D52E18A00D3A986 /* VideoStatusTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4B8FE8C31D52E18A00D3A986 /* VideoStatusTableViewCell.xib */; };
+		4B9B4D9B1EE0EFFF00CF5681 /* libz.1.2.8.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B9B4D9A1EE0EFFF00CF5681 /* libz.1.2.8.tbd */; };
 		4BA8AE7B1D48579C00581437 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BA8AE7A1D48579C00581437 /* AppDelegate.m */; };
 		4BA8AE7E1D48579C00581437 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BA8AE7D1D48579C00581437 /* ViewController.m */; };
 		4BA8AEDA1D48A92600581437 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BA8AED41D48A92600581437 /* main.m */; };
@@ -35,6 +36,7 @@
 		4B8FE8C11D52E18A00D3A986 /* VideoStatusTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoStatusTableViewCell.h; sourceTree = "<group>"; };
 		4B8FE8C21D52E18A00D3A986 /* VideoStatusTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoStatusTableViewCell.m; sourceTree = "<group>"; };
 		4B8FE8C31D52E18A00D3A986 /* VideoStatusTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VideoStatusTableViewCell.xib; sourceTree = "<group>"; };
+		4B9B4D9A1EE0EFFF00CF5681 /* libz.1.2.8.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.1.2.8.tbd; path = usr/lib/libz.1.2.8.tbd; sourceTree = SDKROOT; };
 		4BA8AE731D48579C00581437 /* PPUploadFileDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PPUploadFileDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4BA8AE791D48579C00581437 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		4BA8AE7A1D48579C00581437 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -53,6 +55,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4B9B4D9B1EE0EFFF00CF5681 /* libz.1.2.8.tbd in Frameworks */,
 				4B89E0A01D6EC63B00FA373F /* PPTVFileUpload.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -68,12 +71,21 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		4B9B4D991EE0EFFF00CF5681 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4B9B4D9A1EE0EFFF00CF5681 /* libz.1.2.8.tbd */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		4BA8AE6A1D48579C00581437 = {
 			isa = PBXGroup;
 			children = (
 				4B4135F31D5C0FAE00E7154E /* PPTVFileUpload.xcodeproj */,
 				4BA8AE751D48579C00581437 /* PPUploadFileDemo */,
 				4BA8AE741D48579C00581437 /* Products */,
+				4B9B4D991EE0EFFF00CF5681 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};

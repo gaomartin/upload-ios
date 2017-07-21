@@ -8,6 +8,11 @@
 
 #import "PPFileUploadManager.h"
 #import "PPUploadRequest.h"
+#import "PPDAC.h"
+
+#import <ifaddrs.h>
+#import <arpa/inet.h>
+#import <net/if.h>
 
 #define PPTVAllUploadFiles @"PPTVAllUploadFiles"
 
@@ -57,10 +62,10 @@ static dispatch_queue_t dispatch_get_uploading_queue(){
 - (instancetype)init
 {
     if (self = [super init]) {
-        self.allUploadFiles = [NSMutableArray array];
-        _uploadingQueue = [NSMutableArray array];
-        _uploadingDelegateMap = [NSMutableDictionary dictionary];
-        _protocolRequest  = [[PPUploadRequest alloc] init];
+        self.allUploadFiles    = [NSMutableArray array];
+        _uploadingQueue        = [NSMutableArray array];
+        _uploadingDelegateMap  = [NSMutableDictionary dictionary];
+        _protocolRequest       = [[PPUploadRequest alloc] init];
         
         //判断是否支持多任务
         if ([[UIDevice currentDevice] isMultitaskingSupported]) {
@@ -73,9 +78,9 @@ static dispatch_queue_t dispatch_get_uploading_queue(){
     return self;
 }
 
-#pragma mark -- notification observer
+#pragma mark - notification observer
 /** 添加通知观察 */
-- (void) addNotificationObserver
+- (void)addNotificationObserver
 {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkUploadingQueueStatus:) name:FileUploadingCheckNotification object:nil];
     
@@ -83,7 +88,7 @@ static dispatch_queue_t dispatch_get_uploading_queue(){
 }
 
 /** 删除通知观察 */
-- (void) removeNotificationObserver
+- (void)removeNotificationObserver
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
@@ -93,11 +98,77 @@ static dispatch_queue_t dispatch_get_uploading_queue(){
     [[NSNotificationCenter defaultCenter] postNotificationName:aNoti object:nil];
 }
 
-#pragma mark -- 文件操作
+#pragma mark - timer
+
+- (void)startSendLog
+{
+    if (self.logTimer == nil) {
+        NSLog(@"开启日志定时器");
+        self.obytes = [self getInterfaceBytes];
+        self.logTimer = [NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(sendUploadLog) userInfo:nil repeats:YES];
+        [[NSRunLoop currentRunLoop] addTimer:self.logTimer forMode:NSRunLoopCommonModes];
+        [[NSRunLoop currentRunLoop] run];
+    }
+}
+
+- (void)stopSendLog
+{
+    if (self.logTimer) {
+        NSLog(@"取消日志定时器");
+        [self.logTimer invalidate];
+        self.logTimer = nil;
+    }
+}
+
+- (void)sendUploadLog
+{
+    [[PPDAC sharedPPDAC] sendUploadInfo];
+    self.obytes = [self getInterfaceBytes];
+}
+
+/*获取网络流量信息*/
+- (long long)getInterfaceBytes
+{
+    struct ifaddrs *ifa_list = 0, *ifa;
+    if (getifaddrs(&ifa_list) == -1)
+    {
+        return 0;
+    }
+    
+    uint32_t iBytes = 0;
+    uint32_t oBytes = 0;
+    
+    for (ifa = ifa_list; ifa; ifa = ifa->ifa_next)
+    {
+        if (AF_LINK != ifa->ifa_addr->sa_family)
+            continue;
+        
+        if (!(ifa->ifa_flags & IFF_UP) && !(ifa->ifa_flags & IFF_RUNNING))
+            continue;
+        
+        if (ifa->ifa_data == 0)
+            continue;
+        
+        /* Not a loopback device. */
+        if (strncmp(ifa->ifa_name, "lo", 2))
+        {
+            struct if_data *if_data = (struct if_data *)ifa->ifa_data;
+            
+            iBytes += if_data->ifi_ibytes;
+            oBytes += if_data->ifi_obytes;
+        }
+    }
+    freeifaddrs(ifa_list);
+    
+    NSLog(@"\n[getInterfaceBytes-oBytes]: %d",oBytes);
+    return oBytes;
+}
+
+#pragma mark - 文件操作
 - (BOOL)enqueueUploadingFile:(PPUploadFileData *)uploadFile
 {
-    //只有满足未完成且没有出错的上传操作才可以执行上传操作
-    if (uploadFile && uploadFile.status != UPStatusUploadFinish && uploadFile.status != UPStatusError) {
+    //只有满足未完成上传操作,才可以执行上传操作
+    if (uploadFile && uploadFile.status != UPStatusUploadFinish) {
         PPUploadRequest *request =  [self.uploadingDelegateMap objectForKey:[uploadFile fileIdentifier]];
         
         if (!request) {
@@ -180,6 +251,14 @@ static dispatch_queue_t dispatch_get_uploading_queue(){
     if (uploadFile) {
         NSLog(@"add new upload file [%@]",[uploadFile fileIdentifierForLog]);
         //允许重复添加文件
+        for (PPUploadFileData *fileData in self.allUploadFiles) {
+            NSLog(@"fileData =%@, uploadFile=%@",[fileData fileIdentifier], [uploadFile fileIdentifier]);
+            if ([[fileData fileIdentifier] isEqualToString:[uploadFile fileIdentifier]]) {
+                uploadFile.fileName = [NSString stringWithFormat:@"%@_2",uploadFile.fileName];//区分 fileName
+                uploadFile.assetURL = [NSString stringWithFormat:@"%@_2",uploadFile.assetURL];//区分fileIdentifier, 因为fileIdentifier是直接getter 的, 不能直接修改, 这里修改assetURL
+            }
+        }
+
         [self.allUploadFiles addObject:uploadFile];
         
         [self enqueueUploadingFile:uploadFile];
@@ -260,6 +339,8 @@ static dispatch_queue_t dispatch_get_uploading_queue(){
     [self.allUploadFiles removeAllObjects];
     [self.uploadingQueue removeAllObjects];
     [self.uploadingDelegateMap removeAllObjects];
+    
+    [self updateToDBWith:nil];
 }
 
 - (void)cancelAllUploadingFiles
@@ -270,6 +351,15 @@ static dispatch_queue_t dispatch_get_uploading_queue(){
         [request.operationQueue cancelAllOperations];
         [self.uploadingDelegateMap removeObjectForKey:[uploadFile fileIdentifier]];
     }
+    
+    for (PPUploadFileData *uploadFile in self.allUploadFiles) {
+        //只要不是完成状态的话就都设置
+        if (uploadFile.status != UPStatusUploadFinish) {
+            uploadFile.status = UPStatusNormal;
+        }
+        [self updateToDBWith:uploadFile];
+    }
+    
     NSLog(@"cancelAllUploadingFiles");
     [self postNotification:FileUploadingCheckNotification];
 }
@@ -287,6 +377,7 @@ static dispatch_queue_t dispatch_get_uploading_queue(){
             [self dequeueUploadingFile:uploadFile];
         }
     }
+    
     NSLog(@"changeUploadingFile %@ toStatus: %zd", uploadFile.fileIdentifierForLog,status);
     [self postNotification:FileUploadingCheckNotification];
 }
@@ -302,7 +393,7 @@ static dispatch_queue_t dispatch_get_uploading_queue(){
     return self.allUploadFiles;
 }
 
-#pragma mark -- 上传任务检查
+#pragma mark - 上传任务检查
 
 - (void)checkUploadingQueueStatus:(NSNotification *)notif
 {
@@ -341,7 +432,7 @@ static dispatch_queue_t dispatch_get_uploading_queue(){
     }];
 }
 
-#pragma mark -- PPUploadRequestDelegate
+#pragma mark - PPUploadRequestDelegate
 
 - (void)createFileComplete:(PPUploadFileData*)fileData
 {
@@ -400,6 +491,7 @@ static dispatch_queue_t dispatch_get_uploading_queue(){
         NSLog(@"allUploadFiles NSUserDefaults fileData = %.2fk, %fM",[fileData length] / 1024.0, [fileData length] / (1024.0*1024.0));
         NSArray *uploadDBArray = [NSKeyedUnarchiver unarchiveObjectWithData:fileData];
         
+        [self.allUploadFiles removeAllObjects];
         [self.allUploadFiles addObjectsFromArray:uploadDBArray];
     }
 }

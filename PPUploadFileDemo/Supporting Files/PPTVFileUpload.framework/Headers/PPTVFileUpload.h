@@ -43,10 +43,12 @@
  *  @brief PPTV文件上传SDK
  */
 @interface PPTVFileUpload : NSObject
+
 /*!
  *  @brief 文件上传delegate
  */
 @property (nonatomic, weak) id <PPTVUploadDelegate> uploadDelegate;
+
 /*!
  *  @brief 所有上传文件对象的数组
  */

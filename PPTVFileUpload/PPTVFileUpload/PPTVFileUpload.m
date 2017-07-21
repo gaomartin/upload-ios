@@ -46,6 +46,20 @@
     if (self.uploadDelegate && [self.uploadDelegate respondsToSelector:@selector(uploadFileStatusChange)]) {
         [self.uploadDelegate uploadFileStatusChange];
     }
+    
+    NSArray *uploadArray = self.allUploadFiles;
+    
+    BOOL isNeedSend = NO;
+    for (PPUploadFileData *fileData in uploadArray) {
+        NSLog(@"uploadingFileStatusChange fileData.status=%zd",fileData.status);
+        if (fileData.status == UPStatusUploading) {
+            isNeedSend = YES;
+        }
+    }
+    
+    if (!isNeedSend) {
+        [[PPFileUploadManager sharedFileUploadManager] stopSendLog];
+    }
 }
 
 - (NSMutableArray *)allUploadFiles
@@ -106,7 +120,6 @@
         self.videoInfo.progress = UPProgressCreateFile;
         self.videoInfo.uploadPath = @"%2F";
         self.videoInfo.isStartUploaded = YES;
-        
         //视频信息
         self.videoInfo.path = info.path;
         self.videoInfo.isLocalCacheVideo = info.isLocalCacheVideo;
@@ -142,11 +155,10 @@
             if([assetType isEqualToString:ALAssetTypeVideo])
             {
                 ALAssetRepresentation *assertRepresentation = [result defaultRepresentation];
-                UIImage *fileImg = [[UIImage alloc] initWithCGImage:[assertRepresentation fullScreenImage]];
+                //UIImage *fileImg = [[UIImage alloc] initWithCGImage:[assertRepresentation fullScreenImage]];
                 //self.previewImage.image = fileImg;
                 self.videoInfo = [[PPUploadFileData alloc] init];
                 self.videoInfo.fileSize = [assertRepresentation size];
-                self.videoInfo.fileImage = fileImg;
                 self.videoInfo.assetURL = info.path;
                 
                 self.videoInfo.createDate = [NSDate date];
@@ -154,7 +166,6 @@
                 self.videoInfo.progress = UPProgressCreateFile;
                 self.videoInfo.uploadPath = @"%2F";
                 self.videoInfo.isStartUploaded = YES;
-                
                 //视频信息
                 self.videoInfo.isLocalCacheVideo = info.isLocalCacheVideo;
                 self.videoInfo.width = info.width;
